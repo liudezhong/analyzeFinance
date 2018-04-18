@@ -5,4 +5,4 @@ import src.base.constans.Cash as cash
 
 if __name__ =='__main__':
     files = read_xls.readFiles("/Users/fanpu/developer/资金/苏宁易购")
-    print(cash.Cash.BusiAmount.value)
+    print(cash.Cash.absorbInvestAmount)
