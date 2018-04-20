@@ -5,19 +5,20 @@ from urllib import request
 import src.base.constans.Url as UrlEnum
 import src.base.constans.File as FileEnum
 import src.base.commons.commonUtils as commonUtils
+import src.base.file_utils.fileUtils as fileUtils
 
 # 从互联网获取获取文件
 def obtainDataFromUrl(export, type, code):
     # 转换下载地址
     downFileUrl = UrlEnum.Url.down_ths.value + code + '_' + export + '.json'
-    # downFileUrl = 'http://basic.10jqka.com.cn/api/stock/finance/002024_cash.json'
+    print('打印获取路径：' + downFileUrl)
     # 定义文件存储位置
     fileName = export + '.json'
-    filePath = FileEnum.File.FinanceFile.value + code + '\\' + type + '\\'
+    # 获取文件路径
+    filePath = fileUtils.createFileDir(export, type, code)
+    # 定义文件名
     filePathName = filePath + fileName
-    print(filePathName)
-    commonUtils.mkdir(filePath)
-    print(downFileUrl)
+    print('总体文件名：' + filePathName)
     response = requests.get(downFileUrl, headers=UrlEnum.Url.send_headers.value)
 
     with open(filePathName, 'w', encoding='utf-8') as f1:

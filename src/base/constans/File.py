@@ -3,4 +3,6 @@
 from enum import Enum
 
 class File(Enum):
-    FinanceFile = "D:\\finance\\"
+    WindowsFinanceFile = "D:\\finance\\"
+    LinuxFinanceFile = '/Users/fanpu/developer/finance_work/'
+    OtherFinanceFile = '/Users/fanpu/developer/finance_work/'
