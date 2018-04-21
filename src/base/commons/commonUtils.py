@@ -45,12 +45,10 @@ def getCurrentFilePath(export, type, code, original):
     os = judgeOs()
     basePath = getBaseFileDir(os)
     symble = getSymbleByOs(os)
-    if (original):
-        filePathName = basePath + code + symble + typeEnum.Type.original.value + symble + export + symble + export + '.json'
-    else:
-        filePathName = basePath + code + symble + type + symble + export + symble + export + '.json'
+    fileType = typeEnum.Type.original.value if type == None else type
+    basePathName = basePath + code + symble + fileType + symble + export + symble + export
+    filePathName = basePathName + '.json' if original else basePathName + '.xls'
     return filePathName
-
 
 if __name__ =='__main__':
     # mkdir('D:\\finance\\002024\\year\\debt.xml')

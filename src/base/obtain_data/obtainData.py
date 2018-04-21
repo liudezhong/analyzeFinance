@@ -8,12 +8,12 @@ import src.base.commons.commonUtils as commonUtils
 import src.base.file_utils.fileUtils as fileUtils
 
 # 从互联网获取获取文件
-def obtainDataFromUrl(export, type, code):
+def obtainDataFromUrl(export, code):
     # 转换下载地址
     downFileUrl = UrlEnum.Url.down_ths.value + code + '_' + export + '.json'
     print('抓取信息url：' + downFileUrl)
     # 定义文件名
-    filePathName = commonUtils.getCurrentFilePath(export, type, code, True)
+    filePathName = commonUtils.getCurrentFilePath(export, None, code, True)
     print('总体文件名：' + filePathName)
     response = requests.get(downFileUrl, headers=UrlEnum.Url.send_headers.value)
 
@@ -25,13 +25,14 @@ def obtainDataFromUrl(export, type, code):
 
 # 从同花顺获取信息并存入json文件中等待处理
 def generatorOriginalFiles(code):
+    # 初始化文件目录
     fileUtils.createFileDir(code)
     # 利润表
-    obtainDataFromUrl('benefit', 'year', code)
+    obtainDataFromUrl('benefit', code)
     # 现金流量表
-    obtainDataFromUrl('cash', 'year', code)
+    obtainDataFromUrl('cash', code)
     # 资产负债表
-    obtainDataFromUrl('debt', 'year', code)
+    obtainDataFromUrl('debt', code)
 
 if __name__ =='__main__':
     generatorOriginalFiles('002024')
