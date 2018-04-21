@@ -11,13 +11,9 @@ import src.base.file_utils.fileUtils as fileUtils
 def obtainDataFromUrl(export, type, code):
     # 转换下载地址
     downFileUrl = UrlEnum.Url.down_ths.value + code + '_' + export + '.json'
-    print('打印获取路径：' + downFileUrl)
-    # 定义文件存储位置
-    fileName = export + '.json'
-    # 获取文件路径
-    filePath = fileUtils.createFileDir(export, type, code)
+    print('抓取信息url：' + downFileUrl)
     # 定义文件名
-    filePathName = filePath + fileName
+    filePathName = commonUtils.getCurrentFilePath(export, type, code, True)
     print('总体文件名：' + filePathName)
     response = requests.get(downFileUrl, headers=UrlEnum.Url.send_headers.value)
 
@@ -25,11 +21,11 @@ def obtainDataFromUrl(export, type, code):
         y = response.content.decode()
         z = y.replace('{\\', '{').replace('\\"', '"').replace('\\\\', '\\').replace('\"{', '{').replace('}\"', '}')
         f1.write(z)
-        a = json.loads(z)
-        print(a)
+    print('原始抓取文件写入original文件夹成功！')
 
-# 从同花顺获取信息并存入相应的表格中等待处理
+# 从同花顺获取信息并存入json文件中等待处理
 def generatorOriginalFiles(code):
+    fileUtils.createFileDir(code)
     # 利润表
     obtainDataFromUrl('benefit', 'year', code)
     # 现金流量表

@@ -1,8 +1,16 @@
-#!/usr/bin/python
 # -*- coding: UTF-8 -*-
-import src.base.read_data.read_xls as read_xls
-import src.base.constans.Cash as cash
+import src.base.commons.commonUtils as commonUtils
+import json
 
+'''
+用于将原始数据处理到excel表格中
+'''
+
+def processJsonToExcel(export, type, code):
+    # 获取文件目录的位置
+    filePathName = commonUtils.getCurrentFilePath(export, type, code)
+    with open(filePathName, 'r') as f:
+        data = json.load(f)
+    print (data['flashData']['title'])
 if __name__ =='__main__':
-    files = read_xls.readFiles("/Users/fanpu/developer/资金/苏宁易购")
-    print(cash.Cash.absorbInvestAmount)
+    print(processJsonToExcel('benefit', 'year', '002024'))

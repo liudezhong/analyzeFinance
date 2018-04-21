@@ -4,6 +4,7 @@ import os
 import platform
 import src.base.constans.OSSystem as osEnum
 import src.base.constans.File as fileEnum
+import src.base.constans.Type as typeEnum
 
 # 创建目录
 def mkdir(path):
@@ -39,6 +40,18 @@ def getSymbleByOs(os):
     else:
         return "/"
 
+# 获取当前文件路径
+def getCurrentFilePath(export, type, code, original):
+    os = judgeOs()
+    basePath = getBaseFileDir(os)
+    symble = getSymbleByOs(os)
+    if (original):
+        filePathName = basePath + code + symble + typeEnum.Type.original.value + symble + export + symble + export + '.json'
+    else:
+        filePathName = basePath + code + symble + type + symble + export + symble + export + '.json'
+    return filePathName
+
+
 if __name__ =='__main__':
     # mkdir('D:\\finance\\002024\\year\\debt.xml')
-    print(judgeOs())
+    print(getCurrentFilePath('benefit', 'report', '002024', False))
