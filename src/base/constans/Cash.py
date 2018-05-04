@@ -2,6 +2,7 @@
 
 from enum import Enum
 
+# 现金流量表常量
 class Cash(Enum):
     SellProvAmount = '销售商品、提供劳务收到的现金(元)'
     RecFeeReturnAmount = '收到的税费与返还(元)'
