@@ -1,11 +1,10 @@
 # -*- coding: UTF-8 -*-
 import requests
-import json
-from urllib import request
-import src.base.constans.Url as UrlEnum
-import src.base.constans.File as FileEnum
+
 import src.base.commons.commonUtils as commonUtils
+import src.base.constans.Url as UrlEnum
 import src.base.file_utils.fileUtils as fileUtils
+
 
 # 从互联网获取获取文件
 def obtainDataFromUrl(export, code):
