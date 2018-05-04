@@ -3,6 +3,7 @@ import xlrd
 
 import src.base.commons.commonUtils as commonUtils
 import src.base.constans.Finance as FinanceEnum
+import src.base.constans.Export as exportEnum
 
 
 # 读取excel文件
@@ -30,5 +31,5 @@ def getCurrentFileContext(exprot, type, code):
     return tidyData(readXls(commonUtils.getCurrentFilePath(exprot, type, code, False)))
 
 if __name__ =='__main__':
-    getCurrentFileContext(FinanceEnum.Finance.benefit._name_, FinanceEnum.Finance.report._name_, '002078')
+    getCurrentFileContext(exportEnum.Export.benefit._name_, FinanceEnum.Finance.report._name_, '002078')
 
