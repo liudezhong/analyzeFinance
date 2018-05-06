@@ -9,6 +9,8 @@ import src.base.constans.Finance as financeEnum
 '''
 用于计算常用的指标
 '''
+
+
 # 获取通用数据
 def getCommonData(code):
     data = {}
@@ -25,8 +27,18 @@ def getCommonData(code):
     return data
 
 
-if __name__ =='__main__':
+if __name__ == '__main__':
     data = getCommonData('002078')
-    print(data['002078_report'])
-    calSingleIndexUtils.calFinanceExpense(data['002078_report']['benefit']['2018-03-31'])
-    calSingleIndexUtils.calAdministrationExpense(data['002078_report']['benefit']['2018-03-31'])
+    print(data['002078_report']),
+    calSingleIndexUtils.calFinanceExpense(data['002078_report']['benefit']['subject'],
+                                          data['002078_report']['benefit']['2018-03-31'])
+    calSingleIndexUtils.calAdministrationExpense(data['002078_report']['benefit']['subject'],
+                                                 data['002078_report']['benefit']['2018-03-31'])
+    calSingleIndexUtils.calSelledExpense(data['002078_report']['benefit']['subject'],
+                                         data['002078_report']['benefit']['2018-03-31'])
+    calSingleIndexUtils.calOtherOperatingProfit(data['002078_report']['benefit']['subject'],
+                                                data['002078_report']['benefit']['2018-03-31'])
+    calSingleIndexUtils.calTotalAssetsTurnover(data['002078_report']['benefit']['subject'],
+                                               data['002078_report']['benefit']['2018-03-31'],
+                                               data['002078_report']['debt']['subject'],
+                                               data['002078_report']['debt']['2018-03-31'])

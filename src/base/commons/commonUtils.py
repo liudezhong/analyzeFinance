@@ -52,22 +52,35 @@ def getCurrentFilePath(export, type, code, original):
     return filePathName
 
 # 计算通用类指标的方法
-def calCommonIndex(data, indexName):
+def calCommonIndex(subject, data, indexName):
     result = 0
     index = 0
     trigger = False
-    for name, member in benefitEnum.Benefit.__members__.items():
-        if (name == indexName):  #benefitEnum.Benefit.FinanceExpense.name
+    for sub in subject:
+        if sub == indexName:
             trigger = True
             break
         index += 1
     if trigger:
-        result = data[index]
+        result = transMoney(data[index])
     else:
         result = None
-    print('计算', indexName, '完成, 结果为：', result)
+    print('计算', indexName, '完成, 结果为：', result),
     return result;
+
+# 处理读出的字符中包含汉字亿和万
+def transMoney(data):
+    # 包含亿的处理方式
+    dataMoney = data.strip()
+    if dataMoney.find(u'亿') != -1:
+        return  float(dataMoney.split(u'亿')[0]) * 100000000
+    # 包含万的处理方式
+    elif dataMoney.find(u'万') != -1:
+        return float(dataMoney.split(u'万')[0]) * 10000
+    else:
+        return data
 
 if __name__ =='__main__':
     # mkdir('D:\\finance\\002024\\year\\debt.xml')
-    print(getCurrentFilePath('benefit', 'report', '002024', False))
+    # print(getCurrentFilePath('benefit', 'report', '002024', False))
+    print(float(transMoney('1.42亿')[0]))

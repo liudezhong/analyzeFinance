@@ -13,6 +13,7 @@ class Debt(Enum):
     ReceiveDivident = '应收股利(元)'
     ReceiveOtherCredit = '其他应收款(元)'
     Stock = '存货(元)'
+    OneYearNoncurrentAssets = '一年内到期的非流动资产(元)'
     OtherFlowAsset = '其他流动资产(元)'
     FlowAssetCount = '流动资产合计(元)'
     SelledFinanceAsset = '可供出售金融资产(元)'

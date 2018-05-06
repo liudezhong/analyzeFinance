@@ -1,79 +1,85 @@
 # -*- coding: UTF-8 -*-
 
+import src.base.commons.commonUtils as commonUtils
 import src.base.constans.Benefit as benefitEnum
 import src.base.constans.Debt as debtEnum
-import src.base.constans.Export as exportEnum
-
-import src.base.commons.commonUtils as commonUtils
 
 
 # 计算财务费用
-def calFinanceExpense(data):
-    return commonUtils.calCommonIndex(data, benefitEnum.Benefit.FinanceExpense.name)
+def calFinanceExpense(subject, data):
+    return commonUtils.calCommonIndex(subject, data, benefitEnum.Benefit.FinanceExpense.value)
 
 # 计算管理费用
-def calAdministrationExpense(data):
-    return commonUtils.calCommonIndex(data, benefitEnum.Benefit.AdministrationExpense.name)
+def calAdministrationExpense(subject, data):
+    return commonUtils.calCommonIndex(subject, data, benefitEnum.Benefit.AdministrationExpense.value)
 
 # 计算销售费用
-def calSelledExpense(data):
-    return commonUtils.calCommonIndex(data, benefitEnum.Benefit.SelledExpense.name)
+def calSelledExpense(subject, data):
+    return commonUtils.calCommonIndex(subject, data, benefitEnum.Benefit.SelledExpense.value)
 
 # 计算营业成本
-def calOperatingCost(data):
-    return commonUtils.calCommonIndex(data, benefitEnum.Benefit.OperatingCost)
+def calOperatingCost(subject, data):
+    return commonUtils.calCommonIndex(subject, data, benefitEnum.Benefit.OperatingCost.value)
 
 # 计算所得税
-def calIncomeTax(data):
-    return commonUtils.calCommonIndex(data, benefitEnum.Benefit.IncomeTax)
+def calIncomeTax(subject, data):
+    return commonUtils.calCommonIndex(subject, data, benefitEnum.Benefit.IncomeTax.value)
 
-# todo 计算其他利润 公式为 营业外收入 - 营业外支出
-def calOtherOperatingProfit(data):
-    pass
+# 计算其他利润 = 营业外收入 - 营业外支出
+def calOtherOperatingProfit(subject, data):
+    nonbusinessIncome = commonUtils.calCommonIndex(subject, data, benefitEnum.Benefit.NonbusinessIncome.value)
+    nonbusinessExpenditure = commonUtils.calCommonIndex(subject, data, benefitEnum.Benefit.NonbusinessExpenditure.value)
+    otherOperatingProfit = nonbusinessIncome - nonbusinessExpenditure
+    print(' 计算其他利润结果为: ',  otherOperatingProfit),
+    return otherOperatingProfit
 
 # 计算总成本
-def calTotalOperatingCost(data):
-    return commonUtils.calCommonIndex(data, benefitEnum.Benefit.TotalOperatingCost)
+def calTotalOperatingCost(subject, data):
+    return commonUtils.calCommonIndex(subject, data, benefitEnum.Benefit.TotalOperatingCost.value)
 
 # 计算营业总收入
-def calGrossRevenue(data):
-    return commonUtils.calCommonIndex(data, benefitEnum.Benefit.GrossRevenue)
+def calGrossRevenue(subject, data):
+    return commonUtils.calCommonIndex(subject, data, benefitEnum.Benefit.GrossRevenue.value)
 
 # 计算存货
-def calStock(data):
-    return commonUtils.calCommonIndex(data, debtEnum.Debt.Stock);
+def calStock(subject, data):
+    return commonUtils.calCommonIndex(subject, data, debtEnum.Debt.Stock.value);
 
 # 计算应收账款
-def calReceiveCredit(data):
-    return commonUtils.calCommonIndex(data, debtEnum.Debt.ReceiveCredit)
+def calReceiveCredit(subject, data):
+    return commonUtils.calCommonIndex(subject, data, debtEnum.Debt.ReceiveCredit.value)
 
 # 计算货币资金
-def calCurrencyMoney(data):
-    return commonUtils.calCommonIndex(data, debtEnum.Debt.CurrencyMoney)
+def calCurrencyMoney(subject, data):
+    return commonUtils.calCommonIndex(subject, data, debtEnum.Debt.CurrencyMoney.value)
 
 # 计算净利润
-def calRetainedProfits(data):
-    return commonUtils.calCommonIndex(data, benefitEnum.Benefit.RetainedProfits)
+def calRetainedProfits(subject, data):
+    return commonUtils.calCommonIndex(subject, data, benefitEnum.Benefit.RetainedProfits.value)
 
 # 计算非流动资产
-def calTotalNoncurrentAssets(data):
-    return commonUtils.calCommonIndex(data, debtEnum.Debt.TotalNoncurrentAssets)
+def calTotalNoncurrentAssets(subject, data):
+    return commonUtils.calCommonIndex(subject, data, debtEnum.Debt.TotalNoncurrentAssets.value)
 
 # 计算流动资产
-def calFlowAssetCount(data):
-    return commonUtils.calCommonIndex(data, debtEnum.Debt.FlowAssetCount)
+def calFlowAssetCount(subject, data):
+    return commonUtils.calCommonIndex(subject, data, debtEnum.Debt.FlowAssetCount.value)
 
 # 计算非流动负债
-def calTotalNoncurrentLiabilities(data):
-    return commonUtils.calCommonIndex(data, debtEnum.Debt.TotalNoncurrentLiabilities)
+def calTotalNoncurrentLiabilities(subject, data):
+    return commonUtils.calCommonIndex(subject, data, debtEnum.Debt.TotalNoncurrentLiabilities.value)
 
 # 计算流动负债
-def calTotalCurrentLiabilities(data):
-    return commonUtils.calCommonIndex(data, debtEnum.Debt.TotalCurrentLiabilities);
+def calTotalCurrentLiabilities(subject, data):
+    return commonUtils.calCommonIndex(subject, data, debtEnum.Debt.TotalCurrentLiabilities.value);
 
-# todo 计算总资产周转率
-def calTotalAssetsTurnover(data):
-    pass
+# 计算总资产周转率 = 营业收入/资产总计
+def calTotalAssetsTurnover(benefitSubject, benefitData, debtSubject, debtData):
+    operationRevenue = commonUtils.calCommonIndex(benefitSubject, benefitData, benefitEnum.Benefit.OperationRevenue.value)
+    totalAssets = commonUtils.calCommonIndex(debtSubject, debtData, debtEnum.Debt.TotalAssets.value)
+    totalAssetsTurnover = operationRevenue/totalAssets
+    print('计算总资产周转率结果为: ', totalAssetsTurnover),
+    return totalAssetsTurnover
 
 # todo 计算销售净利润
 def calNetProfitMarginOnSales(data):
@@ -84,12 +90,12 @@ def calOwnershipInterestCount(data):
     pass
 
 # 计算资产总额
-def calTotalAssets(data):
-    return commonUtils.calCommonIndex(data, debtEnum.Debt.TotalAssets)
+def calTotalAssets(subject, data):
+    return commonUtils.calCommonIndex(subject, data, debtEnum.Debt.TotalAssets.value)
 
 # 计算负债总额
-def calTotalLiabilities(data):
-    return commonUtils.calCommonIndex(data, debtEnum.Debt.TotalLiability)
+def calTotalLiabilities(subject, data):
+    return commonUtils.calCommonIndex(subject, data, debtEnum.Debt.TotalLiability.value)
 
 # todo 计算总资产收益率
 def calReturnOnTotalAssets(data):

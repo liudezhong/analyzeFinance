@@ -17,6 +17,11 @@ def tidyData(table):
     rowSize = len(table.row_values(0)) - 1
     colSize = len(table.col_values(0)) - 1
     tidyDist = {}
+    element = 'subject' #table.cell(0, 0).value
+    elements = []
+    for j in range(colSize):
+        elements.append(table.cell(j + 1, 0).value)
+    tidyDist[element] = elements
     for i in range(rowSize):
         element = table.cell(0, i + 1).value
         elements = []
@@ -31,5 +36,5 @@ def getCurrentFileContext(exprot, type, code):
     return tidyData(readXls(commonUtils.getCurrentFilePath(exprot, type, code, False)))
 
 if __name__ =='__main__':
-    getCurrentFileContext(exportEnum.Export.benefit._name_, FinanceEnum.Finance.report._name_, '002078')
+    getCurrentFileContext(exportEnum.Export.debt._name_, FinanceEnum.Finance.report._name_, '002078')
 
