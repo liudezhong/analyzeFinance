@@ -29,4 +29,4 @@ if __name__ =='__main__':
     data = getCommonData('002078')
     print(data['002078_report'])
     calSingleIndexUtils.calFinanceExpense(data['002078_report']['benefit']['2018-03-31'])
-
+    calSingleIndexUtils.calAdministrationExpense(data['002078_report']['benefit']['2018-03-31'])

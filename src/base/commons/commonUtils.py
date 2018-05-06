@@ -5,6 +5,7 @@ import platform
 import src.base.constans.OSSystem as osEnum
 import src.base.constans.File as fileEnum
 import src.base.constans.Type as typeEnum
+import src.base.constans.Benefit as benefitEnum
 
 # 创建目录
 def mkdir(path):
@@ -49,6 +50,23 @@ def getCurrentFilePath(export, type, code, original):
     basePathName = basePath + code + symble + fileType + symble + export + symble + export
     filePathName = basePathName + '.json' if original else basePathName + '.xls'
     return filePathName
+
+# 计算通用类指标的方法
+def calCommonIndex(data, indexName):
+    result = 0
+    index = 0
+    trigger = False
+    for name, member in benefitEnum.Benefit.__members__.items():
+        if (name == indexName):  #benefitEnum.Benefit.FinanceExpense.name
+            trigger = True
+            break
+        index += 1
+    if trigger:
+        result = data[index]
+    else:
+        result = None
+    print('计算', indexName, '完成, 结果为：', result)
+    return result;
 
 if __name__ =='__main__':
     # mkdir('D:\\finance\\002024\\year\\debt.xml')

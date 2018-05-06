@@ -58,5 +58,5 @@ class Debt(Enum):
     GenericRiskReserve = '一般风险准备(元)'
     ParentComTotalEquity= '归属于母公司股东权益合计(元)'
     MinorityEquity = '少数股东权益(元)'
-    TotalLiabilities= '股东权益合计(元)'
+    TotalShareHolderSequity = '股东权益合计(元)'
     TotalStockholderLiabilities= '负债和股东权益总计(元)'
