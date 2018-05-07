@@ -71,6 +71,7 @@ def calCommonIndex(subject, data, indexName):
             break
         index += 1
     if trigger:
+        print('原始数据未：', data[index]),
         result = transMoney(data[index])
     else:
         result = None
@@ -79,6 +80,8 @@ def calCommonIndex(subject, data, indexName):
 
 # 处理读出的字符中包含汉字亿和万
 def transMoney(data):
+    if (data == 0): return data
+    elif(data == ''): return 0
     # 包含亿的处理方式
     dataMoney = data.strip()
     if dataMoney.find(u'亿') != -1:
@@ -87,7 +90,14 @@ def transMoney(data):
     elif dataMoney.find(u'万') != -1:
         return float(dataMoney.split(u'万')[0]) * 10000
     else:
-        return data
+        return float(data)
+
+# 处理除数为0除法
+def handleDivisionZero(data1, data2):
+    if (data2 == 0):
+        return 0
+    else:
+        return data1/data2
 
 if __name__ =='__main__':
     # mkdir('D:\\finance\\002024\\year\\debt.xml')

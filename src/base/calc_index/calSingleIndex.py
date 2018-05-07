@@ -94,12 +94,12 @@ def calTotalAssetsTurnover(benefitSubject, benefitData, debtSubject, debtData):
     operationRevenue = commonUtils.calCommonIndex(benefitSubject, benefitData,
                                                   benefitEnum.Benefit.OperationRevenue.value)
     totalAssets = commonUtils.calCommonIndex(debtSubject, debtData, debtEnum.Debt.TotalAssets.value)
-    totalAssetsTurnover = operationRevenue / totalAssets
+    totalAssetsTurnover = commonUtils.handleDivisionZero(operationRevenue, totalAssets)
     print('计算总资产周转率结果为: ', totalAssetsTurnover),
     return totalAssetsTurnover
 
 
-# todo 计算销售净利率 = 净利润/营业总收入 净利润=利润总额-所得税
+# 计算销售净利率 = 净利润/营业总收入 净利润=利润总额-所得税
 def calNetProfitMarginOnSales(benefitSubject, benefitData):
     # 利润总额
     totalProfit = commonUtils.calCommonIndex(benefitSubject, benefitData, benefitEnum.Benefit.TotalProfit.value)
@@ -111,7 +111,7 @@ def calNetProfitMarginOnSales(benefitSubject, benefitData):
     # 营业总收入
     grossRevenue = commonUtils.calCommonIndex(benefitSubject, benefitData, benefitEnum.Benefit.GrossRevenue.value)
     # 销售净利润
-    netProfitMarginOnSales = retainedProfits / grossRevenue
+    netProfitMarginOnSales = commonUtils.handleDivisionZero(retainedProfits, grossRevenue)
     print('计算销售净利率结果为: ', netProfitMarginOnSales),
     return netProfitMarginOnSales
 
@@ -144,7 +144,7 @@ def calEquityMultiplier(subject, data):
     # 计算所有者权益总额
     totalShareHolderSequity = calTotalShareHolderSequity(subject, data)
     # 计算权益乘数
-    equityMultiplier = totalAssets/totalShareHolderSequity
+    equityMultiplier = commonUtils.handleDivisionZero(totalAssets, totalShareHolderSequity)
     print('计算权益乘数结果为：', equityMultiplier)
     return equityMultiplier
 
@@ -155,7 +155,7 @@ def calAssetLiabilityRatio(subject, data):
     # 资产总额
     totalAssets = calTotalAssets(subject, data)
     # 计算资产率
-    assetLiabilityRatio = totalLiabilities/totalAssets
+    assetLiabilityRatio = commonUtils.handleDivisionZero(totalLiabilities, totalAssets)
     print('计算资产负债率结果为：', assetLiabilityRatio),
     return assetLiabilityRatio
 

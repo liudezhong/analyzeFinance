@@ -17,11 +17,19 @@ def tidyData(table):
     rowSize = len(table.row_values(0)) - 1
     colSize = len(table.col_values(0)) - 1
     tidyDist = {}
+    # 整理所有列的财务数据项
     element = 'subject' #table.cell(0, 0).value
     elements = []
     for j in range(colSize):
         elements.append(table.cell(j + 1, 0).value)
     tidyDist[element] = elements
+    # 整理所有日期项
+    element = 'datetime'
+    elements = []
+    for k in range(rowSize):
+        elements.append(table.cell(0, k + 1).value)
+    tidyDist[element] = elements
+    # 整理内容数据
     for i in range(rowSize):
         element = table.cell(0, i + 1).value
         elements = []
