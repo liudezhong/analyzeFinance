@@ -23,13 +23,13 @@ def getCommonData(code):
             dataXml = readXlsUtils.getCurrentFileContext(exportName, financeName, code)
             secondData[secondKey] = dataXml
         data[firstKey] = secondData
-    print(data),
+    print('整理好的数据：', data),
     return data
 
 
 if __name__ == '__main__':
     data = getCommonData('002078')
-    print(data['002078_report']),
+    # print(data['002078_report']),
     # # 计算财务费用
     # calSingleIndexUtils.calFinanceExpense(data['002078_report']['benefit']['subject'],
     #                                       data['002078_report']['benefit']['2018-03-31'])
@@ -70,7 +70,7 @@ if __name__ == '__main__':
     # calSingleIndexUtils.calAssetLiabilityRatio(data['002078_report']['debt']['subject'],
     #                                             data['002078_report']['debt']['2018-03-31'])
     # 计算净资产收益率
-    calSingleIndexUtils.calReturnOnEquity(data['002078_report']['benefit']['subject'],
-                                               data['002078_report']['benefit']['2018-03-31'],
-                                               data['002078_report']['debt']['subject'],
-                                               data['002078_report']['debt']['2018-03-31'])
+    # calSingleIndexUtils.calReturnOnEquity(data['002078_report']['benefit']['subject'],
+    #                                            data['002078_report']['benefit']['2018-03-31'],
+    #                                            data['002078_report']['debt']['subject'],
+    #                                            data['002078_report']['debt']['2018-03-31'])

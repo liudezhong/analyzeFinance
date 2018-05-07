@@ -51,6 +51,15 @@ def getCurrentFilePath(export, type, code, original):
     filePathName = basePathName + '.json' if original else basePathName + '.xls'
     return filePathName
 
+# 获取当前分析文件目录, 该文件用于记录文件分析结果
+def getAnalysisFilePath(export, type, code):
+    os = judgeOs()
+    basePath = getBaseFileDir(os)
+    symble = getSymbleByOs(os)
+    basePathName = basePath + code + symble + type + symble + export + symble + export
+    filePathName = basePathName + '.xls'
+    return filePathName
+
 # 计算通用类指标的方法
 def calCommonIndex(subject, data, indexName):
     result = 0
@@ -83,4 +92,5 @@ def transMoney(data):
 if __name__ =='__main__':
     # mkdir('D:\\finance\\002024\\year\\debt.xml')
     # print(getCurrentFilePath('benefit', 'report', '002024', False))
-    print(float(transMoney('1.42亿')[0]))
+    print(getAnalysisFilePath('analysis', 'report', '002024'))
+    # print(float(transMoney('1.42亿')[0]))
