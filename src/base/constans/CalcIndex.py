@@ -22,7 +22,7 @@ class CalcIndex(Enum):
     TotalCurrentLiabilities = '流动负债'
     TotalAssetsTurnover = '总资产周转率'
     NetProfitMarginOnSales = '销售净利率'
-    OwnershipInterestCount = '所有者权益总额'
+    OwnershipInterestCount = '所有者权益总额' # 股东权益合计
     TotalAssets = '资产总额'
     TotalLiabilities = '负债总额'
     ReturnOnTotalAssets = '总资产收益率'

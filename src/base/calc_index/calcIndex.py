@@ -30,15 +30,47 @@ def getCommonData(code):
 if __name__ == '__main__':
     data = getCommonData('002078')
     print(data['002078_report']),
-    calSingleIndexUtils.calFinanceExpense(data['002078_report']['benefit']['subject'],
-                                          data['002078_report']['benefit']['2018-03-31'])
-    calSingleIndexUtils.calAdministrationExpense(data['002078_report']['benefit']['subject'],
-                                                 data['002078_report']['benefit']['2018-03-31'])
-    calSingleIndexUtils.calSelledExpense(data['002078_report']['benefit']['subject'],
-                                         data['002078_report']['benefit']['2018-03-31'])
-    calSingleIndexUtils.calOtherOperatingProfit(data['002078_report']['benefit']['subject'],
-                                                data['002078_report']['benefit']['2018-03-31'])
-    calSingleIndexUtils.calTotalAssetsTurnover(data['002078_report']['benefit']['subject'],
+    # # 计算财务费用
+    # calSingleIndexUtils.calFinanceExpense(data['002078_report']['benefit']['subject'],
+    #                                       data['002078_report']['benefit']['2018-03-31'])
+    # # 计算管理费用
+    # calSingleIndexUtils.calAdministrationExpense(data['002078_report']['benefit']['subject'],
+    #                                              data['002078_report']['benefit']['2018-03-31'])
+    # # 计算销售费用
+    # calSingleIndexUtils.calSelledExpense(data['002078_report']['benefit']['subject'],
+    #                                      data['002078_report']['benefit']['2018-03-31'])
+    # # 计算其他利润 = 营业外收入 - 营业外支出
+    # calSingleIndexUtils.calOtherOperatingProfit(data['002078_report']['benefit']['subject'],
+    #                                             data['002078_report']['benefit']['2018-03-31'])
+    # # 计算总资产周转率 = 营业收入/资产总计
+    # calSingleIndexUtils.calTotalAssetsTurnover(data['002078_report']['benefit']['subject'],
+    #                                            data['002078_report']['benefit']['2018-03-31'],
+    #                                            data['002078_report']['debt']['subject'],
+    #                                            data['002078_report']['debt']['2018-03-31'])
+    # 计算总资产收益率
+    # calSingleIndexUtils.calReturnOnTotalAssets(data['002078_report']['benefit']['subject'],
+    #                                            data['002078_report']['benefit']['2018-03-31'],
+    #                                            data['002078_report']['debt']['subject'],
+    #                                            data['002078_report']['debt']['2018-03-31'])
+
+    # 计算营业总收入
+    # calSingleIndexUtils.calGrossRevenue(data['002078_report']['benefit']['subject'],
+    #                                             data['002078_report']['benefit']['2018-03-31'])
+    # # 计算净利润
+    # calSingleIndexUtils.calRetainedProfits(data['002078_report']['benefit']['subject'],
+    #                                     data['002078_report']['benefit']['2018-03-31'])
+    #
+    # calSingleIndexUtils.calNetProfitMarginOnSales(data['002078_report']['benefit']['subject'],
+    #                                     data['002078_report']['benefit']['2018-03-31'])
+
+    # 计算权益乘数
+    # calSingleIndexUtils.calEquityMultiplier(data['002078_report']['debt']['subject'],
+    #                                         data['002078_report']['debt']['2018-03-31'])
+    # # 计算资产负债率
+    # calSingleIndexUtils.calAssetLiabilityRatio(data['002078_report']['debt']['subject'],
+    #                                             data['002078_report']['debt']['2018-03-31'])
+    # 计算净资产收益率
+    calSingleIndexUtils.calReturnOnEquity(data['002078_report']['benefit']['subject'],
                                                data['002078_report']['benefit']['2018-03-31'],
                                                data['002078_report']['debt']['subject'],
                                                data['002078_report']['debt']['2018-03-31'])
