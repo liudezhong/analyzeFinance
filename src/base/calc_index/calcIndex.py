@@ -2,13 +2,16 @@
 
 import src.base.read_data.read_xls as readXlsUtils
 import src.base.calc_index.calSingleIndex as calUtils
+import src.base.handle_data.handleIndexToExcel as handleUtils
 
 import src.base.constans.Export as exportEnum
 import src.base.constans.Finance as financeEnum
+import src.base.constans.Analysis as analysisEnum
 
 '''
 用于计算常用的指标
 '''
+
 
 # 获取通用数据结构
 def getCommonData(code):
@@ -25,68 +28,84 @@ def getCommonData(code):
     print('整理好的数据：', data),
     return data
 
+
 def calAllIndex(code, data):
     # 分成三种类型分别计算 report, simple, year
     for financeName, financeMem in financeEnum.Finance.__members__.items():
         firstKey = code + '_' + financeName
+        # 生成模板类文件
+        handleUtils.handleIndexTemplateToExcel(data[firstKey][exportEnum.Export.benefit.value]['datetime'],
+                                               analysisEnum.Analysis.analysis.value, financeName,
+                                               code)
+        col = 1
         for dateTime in data[firstKey]['debt']['datetime']:
             print('当前计算的时间为：', dateTime)
-            callAllIndexFuc(data[firstKey][exportEnum.Export.benefit.value]['subject'],
-                                               data[firstKey][exportEnum.Export.benefit.value][dateTime],
-                                               data[firstKey][exportEnum.Export.debt.value]['subject'],
-                                               data[firstKey][exportEnum.Export.debt.value][dateTime])
+            if (col == 1):
+                indexList = callAllIndexFuc(data[firstKey][exportEnum.Export.benefit.value]['subject'],
+                                data[firstKey][exportEnum.Export.benefit.value][dateTime],
+                                data[firstKey][exportEnum.Export.debt.value]['subject'],
+                                data[firstKey][exportEnum.Export.debt.value][dateTime])
+                handleUtils.handleDataToExcel(indexList, col, analysisEnum.Analysis.analysis.value, financeName,
+                                                   code)
+            col += 1
+
+
 # 计算所有指标
 def callAllIndexFuc(benefitSubject, benefitData, debtSubject, debtData):
+    indexList = []
     # 计算财务费用
-    calUtils.calFinanceExpense(benefitSubject, benefitData)
+    indexList.append(calUtils.calFinanceExpense(benefitSubject, benefitData))
     # 计算管理费用
-    calUtils.calAdministrationExpense(benefitSubject, benefitData)
+    indexList.append(calUtils.calAdministrationExpense(benefitSubject, benefitData))
     # 计算销售费用
-    calUtils.calSelledExpense(benefitSubject, benefitData)
+    indexList.append(calUtils.calSelledExpense(benefitSubject, benefitData))
     # 计算营业成本
-    calUtils.calOperatingCost(benefitSubject, benefitData)
+    indexList.append(calUtils.calOperatingCost(benefitSubject, benefitData))
     # 计算所得税
-    calUtils.calIncomeTax(benefitSubject, benefitData)
+    indexList.append(calUtils.calIncomeTax(benefitSubject, benefitData))
     # 计算其他利润 = 营业外收入 - 营业外支出
-    calUtils.calOtherOperatingProfit(benefitSubject, benefitData)
+    indexList.append(calUtils.calOtherOperatingProfit(benefitSubject, benefitData))
     # 计算总成本
-    calUtils.calTotalOperatingCost(benefitSubject, benefitData)
+    indexList.append(calUtils.calTotalOperatingCost(benefitSubject, benefitData))
     # 计算营业总收入
-    calUtils.calGrossRevenue(benefitSubject, benefitData)
+    indexList.append(calUtils.calGrossRevenue(benefitSubject, benefitData))
     # 计算存货
-    calUtils.calStock(debtSubject, debtData)
+    indexList.append(calUtils.calStock(debtSubject, debtData))
     # 计算应收账款
-    calUtils.calReceiveCredit(debtSubject, debtData)
+    indexList.append(calUtils.calReceiveCredit(debtSubject, debtData))
     # 计算货币资金
-    calUtils.calCurrencyMoney(debtSubject, debtData)
+    indexList.append(calUtils.calCurrencyMoney(debtSubject, debtData))
     # 计算净利润
-    calUtils.calRetainedProfits(benefitSubject, benefitData)
+    indexList.append(calUtils.calRetainedProfits(benefitSubject, benefitData))
     # 计算非流动资产
-    calUtils.calTotalNoncurrentAssets(debtSubject, debtData)
+    indexList.append(calUtils.calTotalNoncurrentAssets(debtSubject, debtData))
     # 计算流动资产
-    calUtils.calFlowAssetCount(debtSubject, debtData)
+    indexList.append(calUtils.calFlowAssetCount(debtSubject, debtData))
     # 计算非流动负债
-    calUtils.calTotalNoncurrentLiabilities(debtSubject, debtData)
+    indexList.append(calUtils.calTotalNoncurrentLiabilities(debtSubject, debtData))
     # 计算流动负债
-    calUtils.calTotalCurrentLiabilities(debtSubject, debtData)
+    indexList.append(calUtils.calTotalCurrentLiabilities(debtSubject, debtData))
     # 计算总资产周转率 = 营业收入/资产总计
-    calUtils.calTotalAssetsTurnover(benefitSubject, benefitData, debtSubject, debtData)
+    indexList.append(calUtils.calTotalAssetsTurnover(benefitSubject, benefitData, debtSubject, debtData))
     # 计算销售净利率 = 净利润/营业总收入 净利润=利润总额-所得税
-    calUtils.calNetProfitMarginOnSales(benefitSubject, benefitData)
-    # 计算资产总额
-    calUtils.calTotalAssets(debtSubject, debtData)
-    # 计算负债总额
-    calUtils.calTotalLiabilities(debtSubject, debtData)
-    # 计算总资产收益率 = 销售净利率 * 总资产周转率
-    calUtils.calReturnOnTotalAssets(benefitSubject, benefitData, debtSubject, debtData)
-    # 计算权益乘数 = 资产总额 / 所有者权益总额（股东权益合计）
-    calUtils.calEquityMultiplier(debtSubject, debtData)
-    # 计算资产负债率 = 负债总额/资产总额
-    calUtils.calAssetLiabilityRatio(debtSubject, debtData)
-    # 计算净资产收益率 = 权益乘数 * 总资产收益率
-    calUtils.calReturnOnEquity(benefitSubject, benefitData, debtSubject, debtData)
+    indexList.append(calUtils.calNetProfitMarginOnSales(benefitSubject, benefitData))
     # 计算股东权益合计
-    calUtils.calTotalShareHolderSequity(debtSubject, debtData)
+    indexList.append(calUtils.calTotalShareHolderSequity(debtSubject, debtData))
+    # 计算资产总额
+    indexList.append(calUtils.calTotalAssets(debtSubject, debtData))
+    # 计算负债总额
+    indexList.append(calUtils.calTotalLiabilities(debtSubject, debtData))
+    # 计算总资产收益率 = 销售净利率 * 总资产周转率
+    indexList.append(calUtils.calReturnOnTotalAssets(benefitSubject, benefitData, debtSubject, debtData))
+    # 计算权益乘数 = 资产总额 / 所有者权益总额（股东权益合计）
+    indexList.append(calUtils.calEquityMultiplier(debtSubject, debtData))
+    # 计算资产负债率 = 负债总额/资产总额
+    indexList.append(calUtils.calAssetLiabilityRatio(debtSubject, debtData))
+    # 计算净资产收益率 = 权益乘数 * 总资产收益率
+    indexList.append(calUtils.calReturnOnEquity(benefitSubject, benefitData, debtSubject, debtData))
+
+    return indexList
+
 
 if __name__ == '__main__':
     calAllIndex('002078', getCommonData('002078'))

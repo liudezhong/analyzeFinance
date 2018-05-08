@@ -28,4 +28,4 @@ def createFileDir(code):
     print('初始化文件目录完成')
 
 if __name__ =='__main__':
-    createFileDir('002024')
+    createFileDir('002078')
