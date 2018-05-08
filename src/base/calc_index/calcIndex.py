@@ -12,7 +12,6 @@ import src.base.constans.Analysis as analysisEnum
 用于计算常用的指标
 '''
 
-
 # 获取通用数据结构
 def getCommonData(code):
     data = {}
@@ -29,7 +28,8 @@ def getCommonData(code):
     return data
 
 
-def calAllIndex(code, data):
+def calAllIndex(code):
+    data = getCommonData(code)
     # 分成三种类型分别计算 report, simple, year
     for financeName, financeMem in financeEnum.Finance.__members__.items():
         firstKey = code + '_' + financeName
@@ -38,16 +38,17 @@ def calAllIndex(code, data):
                                                analysisEnum.Analysis.analysis.value, financeName,
                                                code)
         col = 1
+        app = handleUtils.getAppObject()
+        wb = handleUtils.getWbObject(analysisEnum.Analysis.analysis.value, financeMem.value, code, app)
         for dateTime in data[firstKey]['debt']['datetime']:
             print('当前计算的时间为：', dateTime)
-            if (col == 1):
-                indexList = callAllIndexFuc(data[firstKey][exportEnum.Export.benefit.value]['subject'],
-                                data[firstKey][exportEnum.Export.benefit.value][dateTime],
-                                data[firstKey][exportEnum.Export.debt.value]['subject'],
-                                data[firstKey][exportEnum.Export.debt.value][dateTime])
-                handleUtils.handleDataToExcel(indexList, col, analysisEnum.Analysis.analysis.value, financeName,
-                                                   code)
+            indexList = callAllIndexFuc(data[firstKey][exportEnum.Export.benefit.value]['subject'],
+                             data[firstKey][exportEnum.Export.benefit.value][dateTime],
+                             data[firstKey][exportEnum.Export.debt.value]['subject'],
+                             data[firstKey][exportEnum.Export.debt.value][dateTime])
+            handleUtils.handleDataToExcel(indexList, col, analysisEnum.Analysis.analysis.value, wb)
             col += 1
+        handleUtils.closeWbObject(wb, app)
 
 
 # 计算所有指标
@@ -108,7 +109,7 @@ def callAllIndexFuc(benefitSubject, benefitData, debtSubject, debtData):
 
 
 if __name__ == '__main__':
-    calAllIndex('002078', getCommonData('002078'))
+    calAllIndex('002078')
     # data = getCommonData('002078')
     # print(data['002078_report']),
     # # 计算财务费用

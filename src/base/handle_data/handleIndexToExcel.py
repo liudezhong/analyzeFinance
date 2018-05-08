@@ -26,21 +26,32 @@ def handleIndexTemplateToExcel(datetime, export, type, code):
     title.save(filePath)  # 保存excel
 
 # 存入数据
-def handleDataToExcel(data, col, export, type, code):
-    # 获取文件
-    filePath = commons.getAnalysisFilePath(export, type, code)
+def handleDataToExcel(data, col, export, wb):
+    c = 2
+    for index in data:
+        print('index', index),
+        cell = commons.getExecelCell(col, c)
+        print('index = ', index, 'cell = ', cell),
+        wb.sheets[export].range(cell).value = index
+        c += 1
+
+# 获取app对象
+def getAppObject():
     app = xw.App(visible=True, add_book=False)
     app.display_alerts = False
     app.screen_updating = False
+    return app
+
+# 获取excel写入对象
+def getWbObject(export, type, code, app):
+    # 获取文件
+    filePath = commons.getAnalysisFilePath(export, type, code)
     # 文件位置：filepath，打开test文档，然后保存，关闭，结束程序
     wb = app.books.open(filePath)
-    c = 1
-    for index in data:
-        print('index', index),
-        wb.sheets[export].range('B2').value = '苦短'
-        c += 1
+    return wb
+
+# 关闭app
+def closeWbObject(wb, app):
     wb.save()
     wb.close()
     app.quit()
-    print('filePath = ', filePath),
-
