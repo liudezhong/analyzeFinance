@@ -134,16 +134,19 @@ def transMoney(data):
         return data
     elif (data == ''):
         return 0
-    # 包含亿的处理方式
+
     dataMoney = data.strip()
-    if dataMoney.find(u'亿') != -1:
-        return float(dataMoney.split(u'亿')[0]) * 100000000
+    # 包含亿万的处理方式
+    if dataMoney.find(u'万亿') != -1:
+        return float(dataMoney.split(u'万亿')[0]) * 1000000000000
     # 包含万的处理方式
     elif dataMoney.find(u'万') != -1:
         return float(dataMoney.split(u'万')[0]) * 10000
+    # 包含亿的处理方式
+    elif dataMoney.find(u'亿') != -1:
+        return float(dataMoney.split(u'亿')[0]) * 100000000
     else:
         return float(data)
-
 
 # 处理除数为0除法
 def handleDivisionZero(data1, data2):
@@ -153,21 +156,9 @@ def handleDivisionZero(data1, data2):
         return data1 / data2
 
 
-# 生成excel队列
-def getExecelCell(col, row):
-    print(cellList[col] + str(row))
-    return cellList[col] + str(row)
-    # charList = [chr(i).upper() for i in range(97, 123)]
-    # cellList = copy.deepcopy(charList)
-    # for char1 in charList:
-    #     for char2 in charList:
-    #         cellList.append(char1 + char2)
-
-
 
 if __name__ == '__main__':
     # mkdir('D:\\finance\\002024\\year\\debt.xml')
     # print(getCurrentFilePath('benefit', 'report', '002024', False))
-    print(getAnalysisFilePath('analysis', 'report', '002024'))
-    # print(float(transMoney('1.42亿')[0]))
-    getExecelCell(6, 2)
+    # print(getAnalysisFilePath('analysis', 'report', '002024'))
+    print(float(transMoney('1.07万亿')))

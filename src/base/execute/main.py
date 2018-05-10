@@ -11,7 +11,7 @@ def execute(code):
 
 
 if __name__ =='__main__':
-    # execute('002024')
+    execute('002024')
     execute('600118')
-    # execute('000002')
-    # execute('002078')
+    execute('000002')
+    execute('002078')

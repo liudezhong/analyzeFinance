@@ -6,3 +6,8 @@ class Export(Enum):
     debt = 'debt'
     benefit = 'benefit'
     cash = 'cash'
+    main = 'main'
+    each = 'each'
+    grow = 'grow'
+    pay = 'pay'
+    operate = 'operate'

@@ -6,8 +6,10 @@ import xlwt
 
 # 打开对应的excel，写入对应的数据
 def handleIndexTemplateToExcel(datetime, export, type, code):
+    excelDist = {}
     #获取文件
     filePath = commons.getAnalysisFilePath(export, type, code)
+    excelDist['filePath'] = filePath
     title = xlwt.Workbook()  # 创建excel对象
     sheet = title.add_sheet(export, cell_overwrite_ok=True)  # 添加一个表
     sheet.write(0, 0, '科目/日期')
@@ -23,17 +25,19 @@ def handleIndexTemplateToExcel(datetime, export, type, code):
         sheet.write(c, 0, member.value)
         c += 1
     print('filePath = ', filePath),
-    title.save(filePath)  # 保存excel
+    excelDist['title'] = title
+    excelDist['sheet'] = sheet
+    # title.save(filePath)  # 保存excel
+    return excelDist
 
 # 存入数据
-def handleDataToExcel(data, col, export, wb):
-    c = 2
+def handleDataToExcel(data, col, export, excelDist):
+    c = 1
     for index in data:
         print('index', index),
-        cell = commons.getExecelCell(col, c)
-        print('index = ', index, 'cell = ', cell),
-        wb.sheets[export].range(cell).value = index
+        excelDist['sheet'].write(c, col, index)
         c += 1
+    excelDist['title'].save(excelDist['filePath'])
 
 # 获取app对象
 def getAppObject():

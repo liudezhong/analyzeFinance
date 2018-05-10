@@ -34,21 +34,18 @@ def calAllIndex(code):
     for financeName, financeMem in financeEnum.Finance.__members__.items():
         firstKey = code + '_' + financeName
         # 生成模板类文件
-        handleUtils.handleIndexTemplateToExcel(data[firstKey][exportEnum.Export.benefit.value]['datetime'],
+        excelDist = handleUtils.handleIndexTemplateToExcel(data[firstKey][exportEnum.Export.benefit.value]['datetime'],
                                                analysisEnum.Analysis.analysis.value, financeName,
                                                code)
         col = 1
-        app = handleUtils.getAppObject()
-        wb = handleUtils.getWbObject(analysisEnum.Analysis.analysis.value, financeMem.value, code, app)
         for dateTime in data[firstKey]['debt']['datetime']:
             print('当前计算的时间为：', dateTime)
             indexList = callAllIndexFuc(data[firstKey][exportEnum.Export.benefit.value]['subject'],
                              data[firstKey][exportEnum.Export.benefit.value][dateTime],
                              data[firstKey][exportEnum.Export.debt.value]['subject'],
                              data[firstKey][exportEnum.Export.debt.value][dateTime])
-            handleUtils.handleDataToExcel(indexList, col, analysisEnum.Analysis.analysis.value, wb)
+            handleUtils.handleDataToExcel(indexList, col, analysisEnum.Analysis.analysis.value, excelDist)
             col += 1
-        handleUtils.closeWbObject(wb, app)
 
 
 # 计算所有指标

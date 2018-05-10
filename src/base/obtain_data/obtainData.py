@@ -32,6 +32,19 @@ def generatorOriginalFiles(code):
     obtainDataFromUrl('cash', code)
     # 资产负债表
     obtainDataFromUrl('debt', code)
+    # 主要指标
+    obtainDataFromUrl('main', code)
+    # 每股能力
+    obtainDataFromUrl('each', code)
+    # 成长能力
+    obtainDataFromUrl('grow', code)
+    # 偿债能力
+    obtainDataFromUrl('pay', code)
+    # 运营能力
+    obtainDataFromUrl('operate', code)
+
+
+
 
 if __name__ =='__main__':
     generatorOriginalFiles('002024')
