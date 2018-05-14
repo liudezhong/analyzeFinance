@@ -160,5 +160,5 @@ def handleDivisionZero(data1, data2):
 if __name__ == '__main__':
     # mkdir('D:\\finance\\002024\\year\\debt.xml')
     # print(getCurrentFilePath('benefit', 'report', '002024', False))
-    # print(getAnalysisFilePath('analysis', 'report', '002024'))
-    print(float(transMoney('1.07万亿')))
+    print(getAnalysisFilePath('analysis', 'report', '002024'))
+    # print(float(transMoney('1.07万亿')))

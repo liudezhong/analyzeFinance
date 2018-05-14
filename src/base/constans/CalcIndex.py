@@ -29,5 +29,7 @@ class CalcIndex(Enum):
     EquityMultiplier = '权益乘数'
     AssetLiabilityRatio = '资产负债率'
     ReturnOnEquity = '净资产收益率'
+    FreeCashFlow = '自由现金流'
+    ReturnOnAssets = '资产收益率'
 
 

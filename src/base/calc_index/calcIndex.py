@@ -43,13 +43,15 @@ def calAllIndex(code):
             indexList = callAllIndexFuc(data[firstKey][exportEnum.Export.benefit.value]['subject'],
                              data[firstKey][exportEnum.Export.benefit.value][dateTime],
                              data[firstKey][exportEnum.Export.debt.value]['subject'],
-                             data[firstKey][exportEnum.Export.debt.value][dateTime])
+                             data[firstKey][exportEnum.Export.debt.value][dateTime],
+                             data[firstKey][exportEnum.Export.cash.value]['subject'],
+                             data[firstKey][exportEnum.Export.cash.value][dateTime])
             handleUtils.handleDataToExcel(indexList, col, analysisEnum.Analysis.analysis.value, excelDist)
             col += 1
 
 
 # 计算所有指标
-def callAllIndexFuc(benefitSubject, benefitData, debtSubject, debtData):
+def callAllIndexFuc(benefitSubject, benefitData, debtSubject, debtData, cashSubject, cashData):
     indexList = []
     # 计算财务费用
     indexList.append(calUtils.calFinanceExpense(benefitSubject, benefitData))
@@ -101,6 +103,10 @@ def callAllIndexFuc(benefitSubject, benefitData, debtSubject, debtData):
     indexList.append(calUtils.calAssetLiabilityRatio(debtSubject, debtData))
     # 计算净资产收益率 = 权益乘数 * 总资产收益率
     indexList.append(calUtils.calReturnOnEquity(benefitSubject, benefitData, debtSubject, debtData))
+    # 计算自由现金流 = 经营性现金流（经营现金流量净额） - 资本支出（购建固定资产和其他支付的现金）
+    indexList.append(calUtils.calFreeCashFlow(cashSubject, cashData))
+    # 计算资产收益率 = 净收益（净利润）/公司全部资产
+    indexList.append(calUtils.calReturnOnAssets(benefitSubject, benefitData, debtSubject, debtData))
 
     return indexList
 

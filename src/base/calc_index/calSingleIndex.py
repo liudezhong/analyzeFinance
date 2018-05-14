@@ -3,6 +3,7 @@
 import src.base.commons.commonUtils as commonUtils
 import src.base.constans.Benefit as benefitEnum
 import src.base.constans.Debt as debtEnum
+import src.base.constans.Cash as cashEnum
 
 
 # 计算财务费用
@@ -174,3 +175,23 @@ def calReturnOnEquity(benefitSubject, benefitData, debtSubject, debtData):
 # 计算股东权益合计
 def calTotalShareHolderSequity(subject, data):
     return commonUtils.calCommonIndex(subject, data, debtEnum.Debt.TotalShareHolderSequity.value)
+
+#计算自由现金流 = 经营性现金流（经营现金流量净额） - 资本支出（购建固定资产和其他支付的现金）
+def calFreeCashFlow(subject, data):
+    # 计算经营性现金流（经营现金流量净额）
+    busiAmount = commonUtils.calCommonIndex(subject, data, cashEnum.Cash.BusiAmount.value)
+    # 计算资本支出（购建固定资产和其他支付的现金）
+    buildFixedAssetsAmount = commonUtils.calCommonIndex(subject, data, cashEnum.Cash.BuildFixedAssetsAmount.value)
+    freeCashFlow = busiAmount - buildFixedAssetsAmount
+    print('计算自由现金流结果为：', freeCashFlow)
+    return freeCashFlow
+
+# 计算资产收益率 = 净收益（净利润）/公司全部资产
+def calReturnOnAssets(benefitSubject, benefitData, debtSubject, debtData):
+    # 计算净利润
+    retainedProfits = calRetainedProfits(benefitSubject, benefitData)
+    # 计算公司全部资产
+    totalAssets = calTotalAssets(debtSubject, debtData)
+    returnOnAssets = commonUtils.handleDivisionZero(retainedProfits, totalAssets)
+    print('计算资产收益率的结果为：', returnOnAssets)
+    return returnOnAssets
