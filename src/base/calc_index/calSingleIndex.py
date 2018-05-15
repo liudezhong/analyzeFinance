@@ -200,3 +200,11 @@ def calReturnOnAssets(benefitSubject, benefitData, debtSubject, debtData):
 # 计算毛利率
 def calGrossProfitRate(subject, data):
     return commonUtils.calCommonIndex(subject, data, mainEnum.Main.GrossProfitRate.value)
+
+# 计算经营性现金流（经营现金流量净额）
+def calbusiAmount(subject, data):
+    return commonUtils.calCommonIndex(subject, data, cashEnum.Cash.BusiAmount.value)
+
+# 计算资本支出（购建固定资产和其他支付的现金）
+def calBuildFixedAssetsAmount(subject, data):
+    return commonUtils.calCommonIndex(subject, data, cashEnum.Cash.BuildFixedAssetsAmount.value)

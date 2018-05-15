@@ -111,6 +111,10 @@ def callAllIndexFuc(benefitSubject, benefitData, debtSubject, debtData, cashSubj
     indexList.append(calUtils.calReturnOnAssets(benefitSubject, benefitData, debtSubject, debtData))
     # 计算毛利率
     indexList.append(calUtils.calGrossProfitRate(mainSubject, mainData))
+    # 计算经营性现金流（经营现金流量净额）
+    indexList.append(calUtils.calbusiAmount(cashSubject, cashData))
+    # 计算资本支出（购建固定资产和其他支付的现金）
+    indexList.append(calUtils.calBuildFixedAssetsAmount(cashSubject, cashData))
 
     return indexList
 

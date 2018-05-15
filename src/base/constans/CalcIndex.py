@@ -32,5 +32,7 @@ class CalcIndex(Enum):
     FreeCashFlow = '自由现金流'
     ReturnOnAssets = '资产收益率'
     GrossProfitRate = '毛利率'
+    BusiAmount = '经营现金流量净额'
+    BuildFixedAssetsAmount = '购建固定资产和其他支付的现金' #资本支出
 
 

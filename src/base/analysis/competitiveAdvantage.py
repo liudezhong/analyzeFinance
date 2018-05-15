@@ -1,11 +1,7 @@
 # -*- coding: UTF-8 -*-
 import src.base.commons.commonUtils as commUtils
 import src.base.constans.CalcIndex as calcIndexEnum
-import pandas as pd
-
-from matplotlib.font_manager import _rebuild
-
-_rebuild()  # reload一下
+import src.base.constans.CompetitiveEdge as comptiEnum
 
 '''
 分析竞争优势:
@@ -16,22 +12,25 @@ _rebuild()  # reload一下
 '''
 
 
-def competitiveAdvantage():
-    pass
+def competitiveAdvantage(code):
+    historicalProfitability(code)
+    checkFreeCashFlowComposition(code)
 
+
+def checkFreeCashFlowComposition(code):
+    sliceList = [calcIndexEnum.CalcIndex.BusiAmount.value,
+                 calcIndexEnum.CalcIndex.BuildFixedAssetsAmount.value,
+                 calcIndexEnum.CalcIndex.FreeCashFlow.value,
+                 ]
+    commUtils.statisticsSingleBaseFunc(code, sliceList, comptiEnum.CompetitiveEdge.AnalysisIndustryStructure.value)
 
 # 评估历史盈利能力
-def historicalProfitability(export, type, code):
-    # 展示自由现金流 1、按照报告周期 2、季度 3、年
-    analyzeTableFileName = commUtils.getAnalysisFilePath(export, type, code)  # 'analysis', 'report', '002024'
-    df = pd.read_excel(analyzeTableFileName, sheet_name='analysis', header=0)
-    enumList = commUtils.historicalProfitabilityEnumIndex([calcIndexEnum.CalcIndex.FreeCashFlow.value,
-                                                           calcIndexEnum.CalcIndex.GrossProfitRate.value,
-                                                           calcIndexEnum.CalcIndex.ReturnOnEquity.value,
-                                                           calcIndexEnum.CalcIndex.ReturnOnAssets.value])
-    print(enumList)
-    commUtils.showPlot(df, enumList, export, type, code, 'historicalProfitability')
-
+def historicalProfitability(code):
+    sliceList = [calcIndexEnum.CalcIndex.FreeCashFlow.value,
+                 calcIndexEnum.CalcIndex.GrossProfitRate.value,
+                 calcIndexEnum.CalcIndex.ReturnOnEquity.value,
+                 calcIndexEnum.CalcIndex.ReturnOnAssets.value]
+    commUtils.statisticsSingleBaseFunc(code, sliceList, comptiEnum.CompetitiveEdge.HistoricalProfitability.value)
 
 # 评估利润来源
 def sourceOfProfits():
@@ -49,8 +48,4 @@ def analysisIndustryStructure():
 
 
 if __name__ == '__main__':
-    # analyzeTableFileName = commUtils.getAnalysisFilePath('analysis', 'year', '002024')  # 'analysis', 'report', '002024'
-    # df = pd.read_excel(analyzeTableFileName, sheet_name='analysis', header=0)
-    historicalProfitability('analysis', 'simple', '002024')
-    # historicalProfitability('analysis', 'report', '002024')
-    # showPlot(df, [24, 25, 26, 27])
+    competitiveAdvantage('002024')

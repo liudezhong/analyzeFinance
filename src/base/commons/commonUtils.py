@@ -5,10 +5,15 @@ import platform
 import src.base.constans.OSSystem as osEnum
 import src.base.constans.File as fileEnum
 import src.base.constans.Type as typeEnum
+import src.base.constans.Finance as financeEnum
+import src.base.constans.Analysis as analysisEnum
 import src.base.constans.CalcIndex as calcIndexEnum
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+
+from matplotlib.font_manager import _rebuild
+_rebuild()  # reload一下
 
 cellList = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U',
             'V', 'W', 'X', 'Y', 'Z', 'AA', 'AB', 'AC', 'AD', 'AE', 'AF', 'AG', 'AH', 'AI', 'AJ', 'AK', 'AL', 'AM', 'AN',
@@ -187,11 +192,10 @@ def showPlot(df, dataList, export, type, code, name):
         axData.plot(dfList[index], color='black', linestyle='dashed', marker='o',
                  markerfacecolor='red', markersize=5, label='line 1')
         index += 1
-    # plt.savefig("/Users/fanpu/developer/finance_work/002024/filename.png")
     basePath = getAnalysisPath(export, type, code)
     fileName = basePath + code + '_' + type + '_' + export + '_' + name + '.png'
     plt.savefig(fileName)
-    plt.show()
+    # plt.show()
 
 # 获取需要展示的分析数据项
 def historicalProfitabilityEnumIndex(dataList):
@@ -205,6 +209,17 @@ def historicalProfitabilityEnumIndex(dataList):
             count += 1
     return indexList
 
+# 统计公共方法
+def statisticsSingleBaseFunc(code, sliceList, assessmentItem):
+    for name, member in financeEnum.Finance.__members__.items():
+        # 展示自由现金流 1、按照报告周期 2、季度 3、年
+        analyzeTableFileName = getAnalysisFilePath(analysisEnum.Analysis.analysis.value, name, code)
+        df = pd.read_excel(analyzeTableFileName, sheet_name=analysisEnum.Analysis.analysis.value, header=0)
+        print('周期为：', name, '计算', assessmentItem, '开始')
+        enumList = historicalProfitabilityEnumIndex(sliceList)
+        print('周期为：', name, '计算', assessmentItem, '结束 绘图开始')
+        showPlot(df, enumList, analysisEnum.Analysis.analysis.value, name, code, assessmentItem)
+        print('周期为：', name, assessmentItem, '，绘图结束')
 
 if __name__ == '__main__':
     # mkdir('D:\\finance\\002024\\year\\debt.xml')
