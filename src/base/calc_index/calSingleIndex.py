@@ -4,6 +4,7 @@ import src.base.commons.commonUtils as commonUtils
 import src.base.constans.Benefit as benefitEnum
 import src.base.constans.Debt as debtEnum
 import src.base.constans.Cash as cashEnum
+import src.base.constans.Main as mainEnum
 
 
 # 计算财务费用
@@ -195,3 +196,7 @@ def calReturnOnAssets(benefitSubject, benefitData, debtSubject, debtData):
     returnOnAssets = commonUtils.handleDivisionZero(retainedProfits, totalAssets)
     print('计算资产收益率的结果为：', returnOnAssets)
     return returnOnAssets
+
+# 计算毛利率
+def calGrossProfitRate(subject, data):
+    return commonUtils.calCommonIndex(subject, data, mainEnum.Main.GrossProfitRate.value)

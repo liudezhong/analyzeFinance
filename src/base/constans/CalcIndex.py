@@ -31,5 +31,6 @@ class CalcIndex(Enum):
     ReturnOnEquity = '净资产收益率'
     FreeCashFlow = '自由现金流'
     ReturnOnAssets = '资产收益率'
+    GrossProfitRate = '毛利率'
 
 

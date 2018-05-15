@@ -5,9 +5,10 @@ import platform
 import src.base.constans.OSSystem as osEnum
 import src.base.constans.File as fileEnum
 import src.base.constans.Type as typeEnum
-import src.base.constans.Benefit as benefitEnum
-
-import copy
+import src.base.constans.CalcIndex as calcIndexEnum
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
 
 cellList = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U',
             'V', 'W', 'X', 'Y', 'Z', 'AA', 'AB', 'AC', 'AD', 'AE', 'AF', 'AG', 'AH', 'AI', 'AJ', 'AK', 'AL', 'AM', 'AN',
@@ -99,7 +100,7 @@ def getCurrentFilePath(export, type, code, original):
     return filePathName
 
 
-# 获取当前分析文件目录, 该文件用于记录文件分析结果
+# 获取当前分析文件目录完整文件名, 该文件用于记录文件分析结果
 def getAnalysisFilePath(export, type, code):
     os = judgeOs()
     basePath = getBaseFileDir(os)
@@ -108,6 +109,13 @@ def getAnalysisFilePath(export, type, code):
     filePathName = basePathName + '.xls'
     return filePathName
 
+# 获取分析文件目录
+def getAnalysisPath(export, type, code):
+    os = judgeOs()
+    basePath = getBaseFileDir(os)
+    symble = getSymbleByOs(os)
+    basePathName = basePath + code + symble + type + symble + export + symble
+    return basePathName
 
 # 计算通用类指标的方法
 def calCommonIndex(subject, data, indexName):
@@ -145,6 +153,8 @@ def transMoney(data):
     # 包含亿的处理方式
     elif dataMoney.find(u'亿') != -1:
         return float(dataMoney.split(u'亿')[0]) * 100000000
+    elif dataMoney.find('%') != -1:
+        return float(dataMoney.split('%')[0]) / 100
     else:
         return float(data)
 
@@ -155,10 +165,51 @@ def handleDivisionZero(data1, data2):
     else:
         return data1 / data2
 
+# 展示图标方法和存储文件
+def showPlot(df, dataList, export, type, code, name):
+    fig1 = plt.figure(figsize=(12, 8))
+    cols = len(dataList)/2 + len(dataList)%2
+    colCount = 1
+    dfList = []
+    axList = []
+
+    for data in dataList:
+        df1 = pd.DataFrame({df.values[data][0]: df.values[data][1:]})
+        dfList.append(df1)
+        ax = fig1.add_subplot(2, cols, colCount)
+        axList.append(ax)
+        colCount += 1
+
+    index = 0
+    for axData in axList:
+        axData.set_xticks(np.arange(0,len(df.values[dataList[index]][1:])), 2)
+        axData.set_title(df.values[dataList[index]][0])
+        axData.plot(dfList[index], color='black', linestyle='dashed', marker='o',
+                 markerfacecolor='red', markersize=5, label='line 1')
+        index += 1
+    # plt.savefig("/Users/fanpu/developer/finance_work/002024/filename.png")
+    basePath = getAnalysisPath(export, type, code)
+    fileName = basePath + code + '_' + type + '_' + export + '_' + name + '.png'
+    plt.savefig(fileName)
+    plt.show()
+
+# 获取需要展示的分析数据项
+def historicalProfitabilityEnumIndex(dataList):
+    indexList = []
+    for data in dataList:
+        count = 0
+        for name, member in calcIndexEnum.CalcIndex.__members__.items():
+            if data == member.value:
+                indexList.append(count)
+                break
+            count += 1
+    return indexList
 
 
 if __name__ == '__main__':
     # mkdir('D:\\finance\\002024\\year\\debt.xml')
     # print(getCurrentFilePath('benefit', 'report', '002024', False))
-    print(getAnalysisFilePath('analysis', 'report', '002024'))
+    # print(getAnalysisFilePath('analysis', 'report', '002024'))
+    print(getAnalysisPath('analysis', 'report', '002024'))
     # print(float(transMoney('1.07万亿')))
+    # historicalProfitabilityEnumIndex([calcIndexEnum.CalcIndex.RetainedProfits.value, calcIndexEnum.CalcIndex.GrossProfitRate.value])
