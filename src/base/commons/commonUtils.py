@@ -170,8 +170,8 @@ def handleDivisionZero(data1, data2):
     else:
         return data1 / data2
 
-# 展示图标方法和存储文件
-def showPlot(df, dataList, export, type, code, name):
+# 财务信息多张图 展示图标方法和存储文件
+def multiShowPlot(df, dataList, export, type, code, name):
     fig1 = plt.figure(figsize=(12, 8))
     cols = len(dataList)/2 + len(dataList)%2
     colCount = 1
@@ -197,6 +197,22 @@ def showPlot(df, dataList, export, type, code, name):
     plt.savefig(fileName)
     # plt.show()
 
+# 财务信息展示一张图，展示图标方法和存储文件
+def singleShowPlot(df, dataList, export, type, code, name):
+    x = df.columns.values.tolist()[1:15]
+    print('x ==', x)
+    dataDist = {}
+    count = 0
+    for data in dataList:
+        dataDist[df.values[data][0]] = df.values[data][1:15]
+        count = len(df.values[data][1:15])
+    df = pd.DataFrame(dataDist, index=x)
+    # todo 实现一个x轴的时间展示数组
+    df.plot(kind='bar', figsize=(15, 8))
+    basePath = getAnalysisPath(export, type, code)
+    fileName = basePath + code + '_' + type + '_' + export + '_' + name + '.png'
+    plt.savefig(fileName)
+
 # 获取需要展示的分析数据项
 def historicalProfitabilityEnumIndex(dataList):
     indexList = []
@@ -209,7 +225,19 @@ def historicalProfitabilityEnumIndex(dataList):
             count += 1
     return indexList
 
-# 统计公共方法
+# 多个数据单独显示统计公共方法
+def statisticsMultiBaseFunc(code, sliceList, assessmentItem):
+    for name, member in financeEnum.Finance.__members__.items():
+        # 展示自由现金流 1、按照报告周期 2、季度 3、年
+        analyzeTableFileName = getAnalysisFilePath(analysisEnum.Analysis.analysis.value, name, code)
+        df = pd.read_excel(analyzeTableFileName, sheet_name=analysisEnum.Analysis.analysis.value, header=0)
+        print('周期为：', name, '计算', assessmentItem, '开始')
+        enumList = historicalProfitabilityEnumIndex(sliceList)
+        print('周期为：', name, '计算', assessmentItem, '结束 绘图开始')
+        multiShowPlot(df, enumList, analysisEnum.Analysis.analysis.value, name, code, assessmentItem)
+        print('周期为：', name, assessmentItem, '，绘图结束')
+
+# 多个数据显示在一张图上
 def statisticsSingleBaseFunc(code, sliceList, assessmentItem):
     for name, member in financeEnum.Finance.__members__.items():
         # 展示自由现金流 1、按照报告周期 2、季度 3、年
@@ -218,7 +246,7 @@ def statisticsSingleBaseFunc(code, sliceList, assessmentItem):
         print('周期为：', name, '计算', assessmentItem, '开始')
         enumList = historicalProfitabilityEnumIndex(sliceList)
         print('周期为：', name, '计算', assessmentItem, '结束 绘图开始')
-        showPlot(df, enumList, analysisEnum.Analysis.analysis.value, name, code, assessmentItem)
+        singleShowPlot(df, enumList, analysisEnum.Analysis.analysis.value, name, code, assessmentItem)
         print('周期为：', name, assessmentItem, '，绘图结束')
 
 if __name__ == '__main__':

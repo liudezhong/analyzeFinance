@@ -30,7 +30,7 @@ def historicalProfitability(code):
                  calcIndexEnum.CalcIndex.GrossProfitRate.value,
                  calcIndexEnum.CalcIndex.ReturnOnEquity.value,
                  calcIndexEnum.CalcIndex.ReturnOnAssets.value]
-    commUtils.statisticsSingleBaseFunc(code, sliceList, comptiEnum.CompetitiveEdge.HistoricalProfitability.value)
+    commUtils.statisticsMultiBaseFunc(code, sliceList, comptiEnum.CompetitiveEdge.HistoricalProfitability.value)
 
 # 评估利润来源
 def sourceOfProfits():
