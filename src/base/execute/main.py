@@ -17,4 +17,6 @@ if __name__ =='__main__':
     # execute('600118')
     # execute('000002')
     # execute('002078')
-    execute('600600')
+    # execute('600600')
+    # execute('300438')
+    execute('000635')

@@ -117,6 +117,8 @@ def callAllIndexFuc(benefitSubject, benefitData, debtSubject, debtData, cashSubj
     indexList.append(calUtils.calBuildFixedAssetsAmount(cashSubject, cashData))
     # 计算 销售商品、提供劳务收到的现金(元)（销售收入）
     indexList.append(calUtils.calSellProvAmount(cashSubject, cashData))
+    # 计算 自由现金流对销售收入的比率
+    indexList.append(calUtils.calFreeCashFlowDivideSell(cashSubject, cashData))
 
     return indexList
 

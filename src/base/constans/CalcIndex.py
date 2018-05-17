@@ -35,5 +35,6 @@ class CalcIndex(Enum):
     BusiAmount = '经营现金流量净额'
     BuildFixedAssetsAmount = '购建固定资产和其他支付的现金' #资本支出
     SellProvAmount = '销售商品、提供劳务收到的现金(元)'
+    FreeCashFlowDivideSell = '自由现金流/销售收入'
 
 

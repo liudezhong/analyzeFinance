@@ -212,3 +212,14 @@ def calBuildFixedAssetsAmount(subject, data):
 # 计算 销售商品、提供劳务收到的现金(元)（销售收入）
 def calSellProvAmount(subject, data):
     return commonUtils.calCommonIndex(subject, data, cashEnum.Cash.SellProvAmount.value)
+
+# 计算自由现金流对销售收入的比率
+def calFreeCashFlowDivideSell(subject, data):
+    # 计算自由现金流
+    freeCashFlow = calFreeCashFlow(subject, data)
+    # 销售商品、提供劳务收到的现金(元)（销售收入）
+    sellProvAmount = calSellProvAmount(subject, data)
+    # 计算自由现金流对销售收入的比率
+    freeCashFlowDivideSell = commonUtils.handleDivisionZero(freeCashFlow, sellProvAmount)
+    print('计算自由现金流对销售收入的比率: ', freeCashFlowDivideSell)
+    return freeCashFlowDivideSell

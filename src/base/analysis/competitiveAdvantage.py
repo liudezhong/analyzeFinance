@@ -11,7 +11,6 @@ import src.base.constans.CompetitiveEdge as comptiEnum
     4、资产收益率 = 净收益/公司全部资产
 '''
 
-
 def competitiveAdvantage(code):
     historicalProfitability(code)
     checkFreeCashFlowComposition(code)
@@ -27,6 +26,7 @@ def checkFreeCashFlowComposition(code):
 # 评估历史盈利能力
 def historicalProfitability(code):
     sliceList = [calcIndexEnum.CalcIndex.FreeCashFlow.value,
+                 calcIndexEnum.CalcIndex.FreeCashFlowDivideSell.value,
                  calcIndexEnum.CalcIndex.GrossProfitRate.value,
                  calcIndexEnum.CalcIndex.ReturnOnEquity.value,
                  calcIndexEnum.CalcIndex.ReturnOnAssets.value
