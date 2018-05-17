@@ -12,3 +12,4 @@ class CompetitiveEdge(Enum):
     # 分析行业结构
     AnalysisIndustryStructure = 'AnalysisIndustryStructure'
     # 分析自由现金流的组成
+    AnalysisFreeCashFlow = 'AnalysisFreeCashFlow'

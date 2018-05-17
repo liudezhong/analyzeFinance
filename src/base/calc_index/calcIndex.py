@@ -115,6 +115,8 @@ def callAllIndexFuc(benefitSubject, benefitData, debtSubject, debtData, cashSubj
     indexList.append(calUtils.calbusiAmount(cashSubject, cashData))
     # 计算资本支出（购建固定资产和其他支付的现金）
     indexList.append(calUtils.calBuildFixedAssetsAmount(cashSubject, cashData))
+    # 计算 销售商品、提供劳务收到的现金(元)（销售收入）
+    indexList.append(calUtils.calSellProvAmount(cashSubject, cashData))
 
     return indexList
 

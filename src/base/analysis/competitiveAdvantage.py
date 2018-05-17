@@ -22,7 +22,7 @@ def checkFreeCashFlowComposition(code):
                  calcIndexEnum.CalcIndex.BuildFixedAssetsAmount.value,
                  calcIndexEnum.CalcIndex.FreeCashFlow.value,
                  ]
-    commUtils.statisticsSingleBaseFunc(code, sliceList, comptiEnum.CompetitiveEdge.AnalysisIndustryStructure.value)
+    commUtils.statisticsSingleBaseFunc(code, sliceList, comptiEnum.CompetitiveEdge.AnalysisFreeCashFlow.value)
 
 # 评估历史盈利能力
 def historicalProfitability(code):

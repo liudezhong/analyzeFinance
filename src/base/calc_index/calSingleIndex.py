@@ -208,3 +208,7 @@ def calbusiAmount(subject, data):
 # 计算资本支出（购建固定资产和其他支付的现金）
 def calBuildFixedAssetsAmount(subject, data):
     return commonUtils.calCommonIndex(subject, data, cashEnum.Cash.BuildFixedAssetsAmount.value)
+
+# 计算 销售商品、提供劳务收到的现金(元)（销售收入）
+def calSellProvAmount(subject, data):
+    return commonUtils.calCommonIndex(subject, data, cashEnum.Cash.SellProvAmount.value)
