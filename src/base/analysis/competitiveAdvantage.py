@@ -29,7 +29,8 @@ def historicalProfitability(code):
     sliceList = [calcIndexEnum.CalcIndex.FreeCashFlow.value,
                  calcIndexEnum.CalcIndex.GrossProfitRate.value,
                  calcIndexEnum.CalcIndex.ReturnOnEquity.value,
-                 calcIndexEnum.CalcIndex.ReturnOnAssets.value]
+                 calcIndexEnum.CalcIndex.ReturnOnAssets.value
+                 ]
     commUtils.statisticsMultiBaseFunc(code, sliceList, comptiEnum.CompetitiveEdge.HistoricalProfitability.value)
 
 # 评估利润来源

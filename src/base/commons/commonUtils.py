@@ -8,6 +8,7 @@ import src.base.constans.Type as typeEnum
 import src.base.constans.Finance as financeEnum
 import src.base.constans.Analysis as analysisEnum
 import src.base.constans.CalcIndex as calcIndexEnum
+import src.base.constans.Constans as constansEnum
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -172,43 +173,46 @@ def handleDivisionZero(data1, data2):
 
 # 财务信息多张图 展示图标方法和存储文件
 def multiShowPlot(df, dataList, export, type, code, name):
-    fig1 = plt.figure(figsize=(12, 8))
-    cols = len(dataList)/2 + len(dataList)%2
+    fig1 = plt.figure(figsize=constansEnum.Constans.FigSize.value)
+    span = constansEnum.Constans.PlotXSpan.value
+    x = np.array(df.columns.values.tolist()[1:span])
+    print('multi x ==', x);
+    cols = len(dataList)
     colCount = 1
     dfList = []
     axList = []
-
     for data in dataList:
-        df1 = pd.DataFrame({df.values[data][0]: df.values[data][1:]})
+        df1 = pd.DataFrame({df.values[data][0]: df.values[data][1:span]})
         dfList.append(df1)
-        ax = fig1.add_subplot(2, cols, colCount)
+        ax = fig1.add_subplot(cols, 1, colCount)
         axList.append(ax)
         colCount += 1
 
     index = 0
     for axData in axList:
-        axData.set_xticks(np.arange(0,len(df.values[dataList[index]][1:])), 2)
+        axData.set_xticks(np.arange(0, span, 1))
+        axData.set_xticklabels(tuple(x))
         axData.set_title(df.values[dataList[index]][0])
         axData.plot(dfList[index], color='black', linestyle='dashed', marker='o',
-                 markerfacecolor='red', markersize=5, label='line 1')
+                 markerfacecolor='red', markersize=5)
         index += 1
     basePath = getAnalysisPath(export, type, code)
     fileName = basePath + code + '_' + type + '_' + export + '_' + name + '.png'
     plt.savefig(fileName)
-    # plt.show()
 
 # 财务信息展示一张图，展示图标方法和存储文件
 def singleShowPlot(df, dataList, export, type, code, name):
-    x = df.columns.values.tolist()[1:15]
+    span = constansEnum.Constans.PlotXSpan.value
+    x = df.columns.values.tolist()[1:span]
     print('x ==', x)
     dataDist = {}
     count = 0
     for data in dataList:
-        dataDist[df.values[data][0]] = df.values[data][1:15]
-        count = len(df.values[data][1:15])
+        dataDist[df.values[data][0]] = df.values[data][1:span]
+        count = len(df.values[data][1:span])
     df = pd.DataFrame(dataDist, index=x)
     # todo 实现一个x轴的时间展示数组
-    df.plot(kind='bar', figsize=(15, 8))
+    df.plot(kind='bar', figsize=constansEnum.Constans.FigSize.value)
     basePath = getAnalysisPath(export, type, code)
     fileName = basePath + code + '_' + type + '_' + export + '_' + name + '.png'
     plt.savefig(fileName)
@@ -253,6 +257,7 @@ if __name__ == '__main__':
     # mkdir('D:\\finance\\002024\\year\\debt.xml')
     # print(getCurrentFilePath('benefit', 'report', '002024', False))
     # print(getAnalysisFilePath('analysis', 'report', '002024'))
-    print(getAnalysisPath('analysis', 'report', '002024'))
+    # print(getAnalysisPath('analysis', 'report', '002024'))
     # print(float(transMoney('1.07万亿')))
     # historicalProfitabilityEnumIndex([calcIndexEnum.CalcIndex.RetainedProfits.value, calcIndexEnum.CalcIndex.GrossProfitRate.value])
+    print(np.arange(0, 10, 2))
