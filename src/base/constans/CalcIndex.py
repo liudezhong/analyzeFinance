@@ -38,5 +38,4 @@ class CalcIndex(Enum):
     FreeCashFlowDivideSell = '自由现金流/销售收入'
     OperatingProfit = '营业利润'
     OperatingMargin = '营业毛利率'
-
-
+    DebtEquityRatio = '负债权益比率'

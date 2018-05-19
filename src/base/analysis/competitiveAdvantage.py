@@ -37,12 +37,13 @@ def caHlistoricalProfitability(code):
                  ]
     doStatisticsFunc.statisticsMultiBaseFunc(code, sliceList, comptiEnum.CompetitiveEdge.HistoricalProfitability.value)
 
-# 评估盈利能力
+# 评估盈利能力 营业毛利率、销售净利率、资产周转率、资产收益率、负债权益比率（财务杠杆比率）、净资产收益率
 def calProfitability(code):
     sliceList = [calcIndexEnum.CalcIndex.OperatingMargin.value,
-                 calcIndexEnum.CalcIndex.TotalAssetsTurnover.value,
                  calcIndexEnum.CalcIndex.NetProfitMarginOnSales.value,
+                 calcIndexEnum.CalcIndex.TotalAssetsTurnover.value,
                  calcIndexEnum.CalcIndex.ReturnOnAssets.value,
+                 calcIndexEnum.CalcIndex.DebtEquityRatio.value,
                  calcIndexEnum.CalcIndex.ReturnOnEquity.value
                  ]
     doStatisticsFunc.statisticsMultiBaseFunc(code, sliceList, comptiEnum.CompetitiveEdge.Profitability.value)

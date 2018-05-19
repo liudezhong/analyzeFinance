@@ -238,3 +238,14 @@ def calOperatingMargin(subject, data):
     operatingMargin = commonUtils.handleDivisionZero((operationRevenue - operatingCost), operationRevenue)
     print('计算营业毛利率的结果为：', operatingMargin)
     return operatingMargin
+
+# 计算负债权益比率=负债总额/所有者权益总额
+def calDebtEquityRatio(subject, data):
+    # 计算负债总额
+    totalLiabilities = calTotalLiabilities(subject, data)
+    # 计算所有者权益总额
+    totalShareHolderSequity = calTotalShareHolderSequity(subject, data)
+    # 计算负债权益比率
+    debtEquityRatio = commonUtils.handleDivisionZero(totalLiabilities, totalShareHolderSequity)
+    print('计算负债权益比率结果是：', debtEquityRatio)
+    return debtEquityRatio

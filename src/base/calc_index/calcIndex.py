@@ -123,6 +123,8 @@ def callAllIndexFuc(benefitSubject, benefitData, debtSubject, debtData, cashSubj
     indexList.append(calUtils.calOperatingProfit(benefitSubject, benefitData))
     # 计算营业毛利率
     indexList.append(calUtils.calOperatingMargin(benefitSubject, benefitData))
+    # 计算负债权益比率=负债总额/所有者权益总额
+    indexList.append(calUtils.calDebtEquityRatio(debtSubject, debtData))
 
     return indexList
 
