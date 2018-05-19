@@ -119,6 +119,10 @@ def callAllIndexFuc(benefitSubject, benefitData, debtSubject, debtData, cashSubj
     indexList.append(calUtils.calSellProvAmount(cashSubject, cashData))
     # 计算 自由现金流对销售收入的比率
     indexList.append(calUtils.calFreeCashFlowDivideSell(cashSubject, cashData))
+    # 计算营业利润
+    indexList.append(calUtils.calOperatingProfit(benefitSubject, benefitData))
+    # 计算营业毛利率
+    indexList.append(calUtils.calOperatingMargin(benefitSubject, benefitData))
 
     return indexList
 

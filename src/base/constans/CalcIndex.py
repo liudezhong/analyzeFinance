@@ -36,5 +36,7 @@ class CalcIndex(Enum):
     BuildFixedAssetsAmount = '购建固定资产和其他支付的现金' #资本支出
     SellProvAmount = '销售商品、提供劳务收到的现金(元)'
     FreeCashFlowDivideSell = '自由现金流/销售收入'
+    OperatingProfit = '营业利润'
+    OperatingMargin = '营业毛利率'
 
 

@@ -223,3 +223,18 @@ def calFreeCashFlowDivideSell(subject, data):
     freeCashFlowDivideSell = commonUtils.handleDivisionZero(freeCashFlow, sellProvAmount)
     print('计算自由现金流对销售收入的比率: ', freeCashFlowDivideSell)
     return freeCashFlowDivideSell
+
+# 计算营业利润
+def calOperatingProfit(subject, data):
+    return commonUtils.calCommonIndex(subject, data, benefitEnum.Benefit.OperatingProfit.value)
+
+# 计算营业毛利率
+def calOperatingMargin(subject, data):
+    # 计算营业收入
+    operationRevenue = commonUtils.calCommonIndex(subject, data, benefitEnum.Benefit.OperationRevenue.value)
+    # 计算营业成本
+    operatingCost = calOperatingCost(subject, data)
+    # 计算营业毛利率
+    operatingMargin = commonUtils.handleDivisionZero((operationRevenue - operatingCost), operationRevenue)
+    print('计算营业毛利率的结果为：', operatingMargin)
+    return operatingMargin

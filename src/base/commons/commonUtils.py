@@ -1,21 +1,21 @@
 # -*- coding: UTF-8 -*-
 
+import copy
+import datetime
 import os
 import platform
-import src.base.constans.OSSystem as osEnum
-import src.base.constans.File as fileEnum
-import src.base.constans.Type as typeEnum
-import src.base.constans.Finance as financeEnum
-import src.base.constans.Analysis as analysisEnum
-import src.base.constans.CalcIndex as calcIndexEnum
-import src.base.constans.Constans as constansEnum
+
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import copy
-import datetime
-
 from matplotlib.font_manager import _rebuild
+
+import src.base.constans.CalcIndex as calcIndexEnum
+import src.base.constans.Constans as constansEnum
+import src.base.constans.File as fileEnum
+import src.base.constans.OSSystem as osEnum
+import src.base.constans.Type as typeEnum
+
 _rebuild()  # reload一下
 
 cellList = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U',
@@ -231,29 +231,6 @@ def historicalProfitabilityEnumIndex(dataList):
             count += 1
     return indexList
 
-# 多个数据单独显示统计公共方法
-def statisticsMultiBaseFunc(code, sliceList, assessmentItem):
-    for name, member in financeEnum.Finance.__members__.items():
-        # 展示自由现金流 1、按照报告周期 2、季度 3、年
-        analyzeTableFileName = getAnalysisFilePath(analysisEnum.Analysis.analysis.value, name, code)
-        df = pd.read_excel(analyzeTableFileName, sheet_name=analysisEnum.Analysis.analysis.value, header=0)
-        print('周期为：', name, '计算', assessmentItem, '开始')
-        enumList = historicalProfitabilityEnumIndex(sliceList)
-        print('周期为：', name, '计算', assessmentItem, '结束 绘图开始')
-        multiShowPlot(df, enumList, analysisEnum.Analysis.analysis.value, name, code, assessmentItem)
-        print('周期为：', name, assessmentItem, '，绘图结束')
-
-# 多个数据显示在一张图上
-def statisticsSingleBaseFunc(code, sliceList, assessmentItem):
-    for name, member in financeEnum.Finance.__members__.items():
-        # 展示自由现金流 1、按照报告周期 2、季度 3、年
-        analyzeTableFileName = getAnalysisFilePath(analysisEnum.Analysis.analysis.value, name, code)
-        df = pd.read_excel(analyzeTableFileName, sheet_name=analysisEnum.Analysis.analysis.value, header=0)
-        print('周期为：', name, '计算', assessmentItem, '开始')
-        enumList = historicalProfitabilityEnumIndex(sliceList)
-        print('周期为：', name, '计算', assessmentItem, '结束 绘图开始')
-        singleShowPlot(df, enumList, analysisEnum.Analysis.analysis.value, name, code, assessmentItem)
-        print('周期为：', name, assessmentItem, '，绘图结束')
 
 # 返回股票
 def createStockTemp(code, industry):

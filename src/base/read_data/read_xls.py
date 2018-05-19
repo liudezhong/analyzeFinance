@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 import xlrd
 
-import src.base.commons.commonUtils as commonUtils
+import src.base.commons.commonUtils as commUtils
 import src.base.constans.Finance as FinanceEnum
 import src.base.constans.Export as exportEnum
 
@@ -41,7 +41,7 @@ def tidyData(table):
 
 # 读取固定目录下的文件内容并整理成dist格式
 def getCurrentFileContext(exprot, type, code):
-    return tidyData(readXls(commonUtils.getCurrentFilePath(exprot, type, code, False)))
+    return tidyData(readXls(commUtils.getCurrentFilePath(exprot, type, code, False)))
 
 if __name__ =='__main__':
     getCurrentFileContext(exportEnum.Export.debt._name_, FinanceEnum.Finance.report._name_, '002078')

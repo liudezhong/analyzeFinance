@@ -1,8 +1,10 @@
 # -*- coding: UTF-8 -*-
 import src.base.commons.commonUtils as commons
 import src.base.constans.CalcIndex as CalcIndexEnum
-import xlwings as xw
+import src.base.constans.Constans as consEnum
 import xlwt
+import xlrd
+from xlutils.copy import copy
 
 # 打开对应的excel，写入对应的数据
 def handleIndexTemplateToExcel(datetime, export, type, code):
@@ -39,23 +41,27 @@ def handleDataToExcel(data, col, export, excelDist):
         c += 1
     excelDist['title'].save(excelDist['filePath'])
 
-# 获取app对象
-def getAppObject():
-    app = xw.App(visible=True, add_book=False)
-    app.display_alerts = False
-    app.screen_updating = False
-    return app
-
-# 获取excel写入对象
-def getWbObject(export, type, code, app):
-    # 获取文件
+# 打开对应的excel，写入对应的数据
+def handleSpecialIndexToExcel(df, dataList, export, type, code, specialName):
+    #获取文件
     filePath = commons.getAnalysisFilePath(export, type, code)
-    # 文件位置：filepath，打开test文档，然后保存，关闭，结束程序
-    wb = app.books.open(filePath)
-    return wb
-
-# 关闭app
-def closeWbObject(wb, app):
-    wb.save()
-    wb.close()
-    app.quit()
+    src = xlrd.open_workbook(filePath, formatting_info=True)
+    sheetOld = src.sheet_by_index(0)
+    destination = copy(src)
+    sheet = destination.add_sheet(specialName)
+    # 标题写入文件
+    x = df.columns.values.tolist()[0:consEnum.Constans.PlotXSpan.value]
+    c = 0
+    for date in x:
+        sheet.write(0, c, date)
+        c += 1
+    # 时间写入文件
+    c = 1
+    for da in dataList:
+        rowsData = sheetOld.row_values(da + 1)[0:consEnum.Constans.PlotXSpan.value]
+        d = 0
+        for rowData in rowsData:
+            sheet.write(c, d, rowData)
+            d += 1
+        c += 1
+    destination.save(filePath)  # 保存excel

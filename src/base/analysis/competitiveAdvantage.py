@@ -2,6 +2,7 @@
 import src.base.commons.commonUtils as commUtils
 import src.base.constans.CalcIndex as calcIndexEnum
 import src.base.constans.CompetitiveEdge as comptiEnum
+import src.base.analysis.statisticsFunc as doStatisticsFunc
 
 '''
 分析竞争优势:
@@ -10,28 +11,41 @@ import src.base.constans.CompetitiveEdge as comptiEnum
     3、净资产收益率
     4、资产收益率 = 净收益/公司全部资产
 '''
-
 def competitiveAdvantage(code):
-    historicalProfitability(code)
-    checkFreeCashFlowComposition(code)
+    # 评估历史盈利能力
+    caHlistoricalProfitability(code)
+    # 评估自由现金流的组成
+    calCheckFreeCashFlowComposition(code)
+    # 评估盈利能力
+    calProfitability(code)
 
-
-def checkFreeCashFlowComposition(code):
+# 评估自由现金流的组成
+def calCheckFreeCashFlowComposition(code):
     sliceList = [calcIndexEnum.CalcIndex.BusiAmount.value,
                  calcIndexEnum.CalcIndex.BuildFixedAssetsAmount.value,
                  calcIndexEnum.CalcIndex.FreeCashFlow.value,
                  ]
-    commUtils.statisticsSingleBaseFunc(code, sliceList, comptiEnum.CompetitiveEdge.AnalysisFreeCashFlow.value)
+    doStatisticsFunc.statisticsSingleBaseFunc(code, sliceList, comptiEnum.CompetitiveEdge.AnalysisFreeCashFlow.value)
 
 # 评估历史盈利能力
-def historicalProfitability(code):
+def caHlistoricalProfitability(code):
     sliceList = [calcIndexEnum.CalcIndex.FreeCashFlow.value,
                  calcIndexEnum.CalcIndex.FreeCashFlowDivideSell.value,
                  calcIndexEnum.CalcIndex.GrossProfitRate.value,
                  calcIndexEnum.CalcIndex.ReturnOnEquity.value,
                  calcIndexEnum.CalcIndex.ReturnOnAssets.value
                  ]
-    commUtils.statisticsMultiBaseFunc(code, sliceList, comptiEnum.CompetitiveEdge.HistoricalProfitability.value)
+    doStatisticsFunc.statisticsMultiBaseFunc(code, sliceList, comptiEnum.CompetitiveEdge.HistoricalProfitability.value)
+
+# 评估盈利能力
+def calProfitability(code):
+    sliceList = [calcIndexEnum.CalcIndex.OperatingMargin.value,
+                 calcIndexEnum.CalcIndex.TotalAssetsTurnover.value,
+                 calcIndexEnum.CalcIndex.NetProfitMarginOnSales.value,
+                 calcIndexEnum.CalcIndex.ReturnOnAssets.value,
+                 calcIndexEnum.CalcIndex.ReturnOnEquity.value
+                 ]
+    doStatisticsFunc.statisticsMultiBaseFunc(code, sliceList, comptiEnum.CompetitiveEdge.Profitability.value)
 
 # 评估利润来源
 def sourceOfProfits():

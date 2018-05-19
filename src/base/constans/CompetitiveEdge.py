@@ -4,12 +4,14 @@ from enum import Enum
 
 class CompetitiveEdge(Enum):
     # 评估历史盈利能力
-    HistoricalProfitability = 'HistoricalProfitability'
+    HistoricalProfitability = '评估历史盈利能力'
+    # 评估盈利能力
+    Profitability = '评估盈利能力'
     # 评估利润来源
-    SourceOfProfits = 'SourceOfProfits'
+    SourceOfProfits = '评估利润来源'
     # 评估竞争优势周期
-    EvaluateCompetitiveAdvantageCycle = 'EvaluateCompetitiveAdvantageCycle'
+    EvaluateCompetitiveAdvantageCycle = '评估竞争优势周期'
     # 分析行业结构
-    AnalysisIndustryStructure = 'AnalysisIndustryStructure'
+    AnalysisIndustryStructure = '分析行业结构'
     # 分析自由现金流的组成
-    AnalysisFreeCashFlow = 'AnalysisFreeCashFlow'
+    AnalysisFreeCashFlow = '分析自由现金流的组成'
