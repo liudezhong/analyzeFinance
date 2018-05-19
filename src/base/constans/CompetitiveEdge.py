@@ -19,3 +19,5 @@ class CompetitiveEdge(Enum):
     Growth = '分析成长性'
     # 分析盈利性
     TheForProfit = '分析盈利性'
+    # 评估财务健康状况
+    FinancialHealth = '评估财务健康状况'

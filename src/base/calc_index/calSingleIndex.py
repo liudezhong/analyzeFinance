@@ -5,7 +5,7 @@ import src.base.constans.Benefit as benefitEnum
 import src.base.constans.Debt as debtEnum
 import src.base.constans.Cash as cashEnum
 import src.base.constans.Main as mainEnum
-
+import src.base.constans.Pay as payEnum
 
 # 计算财务费用
 def calFinanceExpense(subject, data):
@@ -261,7 +261,15 @@ def calRetainedProfitsGrowth(subject, data):
 # 计算扣非净利润同比增长率()
 def calNonNetRetainedProfitsGrowth(subject, data):
     return commonUtils.calCommonIndex(subject, data, mainEnum.Main.NonNetRetainedProfitsGrowth.value)
-
 # 计算营业收入
 def calOperationRevenue(subject, data):
     return commonUtils.calCommonIndex(subject, data, benefitEnum.Benefit.OperationRevenue.value)
+# 计算流动比率()
+def calCurrentRatio(subject, data):
+    return commonUtils.calCommonIndex(subject, data, payEnum.Pay.CurrentRatio.value)
+# 计算速动比率
+def calQuickRatio(subject, data):
+    return commonUtils.calCommonIndex(subject, data, payEnum.Pay.QuickRatio.value)
+# 计算保守速动比率
+def calConserQuickRatio(subject, data):
+    return commonUtils.calCommonIndex(subject, data, payEnum.Pay.ConserQuickRatio.value)

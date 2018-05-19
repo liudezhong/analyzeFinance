@@ -43,3 +43,6 @@ class CalcIndex(Enum):
     RetainedProfitsGrowth= '净利润同比增长率()'
     NonNetRetainedProfitsGrowth= '扣非净利润同比增长率()'
     OperationRevenue = '营业收入(元)'
+    CurrentRatio = '流动比率()'
+    QuickRatio = '速动比率()'
+    ConserQuickRatio = '保守速动比率()'

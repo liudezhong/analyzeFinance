@@ -30,6 +30,7 @@ def getCommonData(code):
 
 def calAllIndex(code):
     data = getCommonData(code)
+    print('data = ', data)
     # 分成三种类型分别计算 report, simple, year
     for financeName, financeMem in financeEnum.Finance.__members__.items():
         firstKey = code + '_' + financeName
@@ -40,20 +41,34 @@ def calAllIndex(code):
         col = 1
         for dateTime in data[firstKey]['debt']['datetime']:
             print('当前计算的时间为：', dateTime)
-            indexList = callAllIndexFuc(data[firstKey][exportEnum.Export.benefit.value]['subject'],
+            # if str(dateTime).find('.') > 0:
+            #     dateTime = str(dateTime)[0:4]
+            #     print('当前计算的时间为str ：', str(dateTime)[0:4])
+            print('pay_data = ', data[firstKey][exportEnum.Export.pay.value])
+            print('financeName = ', financeMem.value, 'financeEnum.Finance.year.value = ', financeEnum.Finance.year.value)
+            dateTimeKey = dateTime
+            if financeMem.value == financeEnum.Finance.year.value:
+                dateTimeKey = str(dateTime)[0:4]
+                print('firstKey = ', firstKey, 'exportEnum.Export.pay.value = ', exportEnum.Export.pay.value, 'dateTimeKey = ', dateTimeKey)
+                print('pay_data11 = ', data[firstKey][exportEnum.Export.pay.value].get(dateTimeKey))
+            indexList = callAllIndexFuc(
+                             data[firstKey][exportEnum.Export.benefit.value]['subject'],
                              data[firstKey][exportEnum.Export.benefit.value][dateTime],
                              data[firstKey][exportEnum.Export.debt.value]['subject'],
                              data[firstKey][exportEnum.Export.debt.value][dateTime],
                              data[firstKey][exportEnum.Export.cash.value]['subject'],
                              data[firstKey][exportEnum.Export.cash.value][dateTime],
                              data[firstKey][exportEnum.Export.main.value]['subject'],
-                             data[firstKey][exportEnum.Export.main.value][dateTime]
+                             data[firstKey][exportEnum.Export.main.value][dateTime],
+                             data[firstKey][exportEnum.Export.pay.value]['subject'],
+                             data[firstKey][exportEnum.Export.pay.value][dateTimeKey]
                              )
             handleUtils.handleDataToExcel(indexList, col, analysisEnum.Analysis.analysis.value, excelDist)
             col += 1
 
 # 计算所有指标
-def callAllIndexFuc(benefitSubject, benefitData, debtSubject, debtData, cashSubject, cashData, mainSubject, mainData):
+def callAllIndexFuc(benefitSubject, benefitData, debtSubject, debtData, cashSubject, cashData, mainSubject, mainData,
+                    paySubject, payData):
     indexList = []
     # 计算财务费用
     indexList.append(calUtils.calFinanceExpense(benefitSubject, benefitData))
@@ -133,6 +148,12 @@ def callAllIndexFuc(benefitSubject, benefitData, debtSubject, debtData, cashSubj
     indexList.append(calUtils.calNonNetRetainedProfitsGrowth(mainSubject, mainData))
     # 计算营业收入
     indexList.append(calUtils.calOperationRevenue(benefitSubject, benefitData))
+    # 计算流动比率()
+    indexList.append(calUtils.calCurrentRatio(paySubject, payData))
+    # 计算速动比率
+    indexList.append(calUtils.calQuickRatio(paySubject, payData))
+    # 计算保守速动比率
+    indexList.append(calUtils.calConserQuickRatio(paySubject, payData))
 
     return indexList
 

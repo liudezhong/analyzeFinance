@@ -136,12 +136,12 @@ def calCommonIndex(subject, data, indexName):
             break
         index += 1
     if trigger:
-        print('原始数据未：', data[index]),
+        print('原始数据为：', data[index]),
         result = transMoney(data[index])
     else:
         result = None
     print('计算', indexName, '完成, 结果为：', result),
-    return result;
+    return result
 
 
 # 处理读出的字符中包含汉字亿和万
