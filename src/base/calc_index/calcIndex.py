@@ -125,6 +125,12 @@ def callAllIndexFuc(benefitSubject, benefitData, debtSubject, debtData, cashSubj
     indexList.append(calUtils.calOperatingMargin(benefitSubject, benefitData))
     # 计算负债权益比率=负债总额/所有者权益总额
     indexList.append(calUtils.calDebtEquityRatio(debtSubject, debtData))
+    # 计算扣非净利润(元)
+    indexList.append(calUtils.calTakeNonRetainedProfits(benefitSubject, benefitData))
+    # 计算净利润同比增长率()
+    indexList.append(calUtils.calRetainedProfitsGrowth(mainSubject, mainData))
+    # 计算扣非净利润同比增长率()
+    indexList.append(calUtils.calNonNetRetainedProfitsGrowth(mainSubject, mainData))
 
     return indexList
 

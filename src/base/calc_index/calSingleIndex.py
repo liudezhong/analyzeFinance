@@ -249,3 +249,15 @@ def calDebtEquityRatio(subject, data):
     debtEquityRatio = commonUtils.handleDivisionZero(totalLiabilities, totalShareHolderSequity)
     print('计算负债权益比率结果是：', debtEquityRatio)
     return debtEquityRatio
+
+# 计算扣非净利润(元)
+def calTakeNonRetainedProfits(subject, data):
+    return commonUtils.calCommonIndex(subject, data, benefitEnum.Benefit.TakeNonRetainedProfits.value)
+
+# 计算净利润同比增长率()
+def calRetainedProfitsGrowth(subject, data):
+    return commonUtils.calCommonIndex(subject, data, mainEnum.Main.RetainedProfitsGrowth.value)
+
+# 计算扣非净利润同比增长率()
+def calNonNetRetainedProfitsGrowth(subject, data):
+    return commonUtils.calCommonIndex(subject, data, mainEnum.Main.NonNetRetainedProfitsGrowth.value)

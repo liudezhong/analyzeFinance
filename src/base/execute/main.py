@@ -3,14 +3,16 @@
 import src.base.obtain_data.obtainData as obtainFuc
 import src.base.handle_data.handleJsonToExcel as handleFuc
 import src.base.calc_index.calcIndex as calcIndexFuc
-import src.base.analysis.competitiveAdvantage as comptAdvFun
+import src.base.analysis.competitiveAdvantage as comptAdvFuc
+import src.base.analysis.analysisGrow as analyGrowFuc
 
 def execute(code):
     # TODO 后期再加上这个数据库的初始化操作，先实现报表的统计计量
     obtainFuc.generatorOriginalFiles(code)
     handleFuc.allHandleDataToExcel(code)
     calcIndexFuc.calAllIndex(code)
-    comptAdvFun.competitiveAdvantage(code)
+    comptAdvFuc.competitiveAdvantage(code)
+    analyGrowFuc.calGrowth(code)
 
 
 if __name__ =='__main__':

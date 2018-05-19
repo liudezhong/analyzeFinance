@@ -1,8 +1,7 @@
 # -*- coding: UTF-8 -*-
-import src.base.commons.commonUtils as commUtils
+import src.base.analysis.statisticsFunc as doStatisticsFunc
 import src.base.constans.CalcIndex as calcIndexEnum
 import src.base.constans.CompetitiveEdge as comptiEnum
-import src.base.analysis.statisticsFunc as doStatisticsFunc
 
 '''
 分析竞争优势:
@@ -60,6 +59,10 @@ def evaluateCompetitiveAdvantageCycle():
 
 # 分析行业结构
 def analysisIndustryStructure():
+    pass
+
+# 评估成长性
+def calGrowth(code):
     pass
 
 

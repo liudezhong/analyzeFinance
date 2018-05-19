@@ -39,3 +39,6 @@ class CalcIndex(Enum):
     OperatingProfit = '营业利润'
     OperatingMargin = '营业毛利率'
     DebtEquityRatio = '负债权益比率'
+    TakeNonRetainedProfits = '扣非净利润(元)'
+    RetainedProfitsGrowth= '净利润同比增长率()'
+    NonNetRetainedProfitsGrowth= '扣非净利润同比增长率()'

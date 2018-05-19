@@ -1,10 +1,16 @@
 # -*- coding: UTF-8 -*-
+import src.base.analysis.statisticsFunc as doStatisticsFunc
+import src.base.constans.CalcIndex as calcIndexEnum
+import src.base.constans.CompetitiveEdge as comptiEnum
 
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
+# 评估成长性 净利润，扣非净利润，净利润同比增长率、扣非净利润同比增长率
+def calGrowth(code):
+    sliceList = [calcIndexEnum.CalcIndex.RetainedProfits.value,
+                 calcIndexEnum.CalcIndex.RetainedProfitsGrowth.value,
+                 calcIndexEnum.CalcIndex.TakeNonRetainedProfits.value,
+                 calcIndexEnum.CalcIndex.NonNetRetainedProfitsGrowth.value,
+                 ]
+    doStatisticsFunc.statisticsMultiBaseFunc(code, sliceList, comptiEnum.CompetitiveEdge.Growth.value)
 
-# 从经济学的角度去分析
-print(np.arange(20))
-plt.plot(np.arange(20))
-plt.show()
+if __name__ == '__main__':
+    calGrowth('002024')
