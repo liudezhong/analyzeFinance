@@ -6,6 +6,7 @@ import src.base.calc_index.calcIndex as calcIndexFuc
 import src.base.analysis.competitiveAdvantage as comptAdvFun
 
 def execute(code):
+    # TODO 后期再加上这个数据库的初始化操作，先实现报表的统计计量
     obtainFuc.generatorOriginalFiles(code)
     handleFuc.allHandleDataToExcel(code)
     calcIndexFuc.calAllIndex(code)

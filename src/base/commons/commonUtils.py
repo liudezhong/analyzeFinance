@@ -12,6 +12,8 @@ import src.base.constans.Constans as constansEnum
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import copy
+import datetime
 
 from matplotlib.font_manager import _rebuild
 _rebuild()  # reload一下
@@ -252,6 +254,12 @@ def statisticsSingleBaseFunc(code, sliceList, assessmentItem):
         print('周期为：', name, '计算', assessmentItem, '结束 绘图开始')
         singleShowPlot(df, enumList, analysisEnum.Analysis.analysis.value, name, code, assessmentItem)
         print('周期为：', name, assessmentItem, '，绘图结束')
+
+# 返回股票
+def createStockTemp(code, industry):
+    stockTemp = {'stock':code, 'industry':industry, 'createTime': datetime.datetime.now(), 'updateTime': datetime.datetime.now(),
+                   'updateCount': 0, 'status': 0}
+    return copy.deepcopy(stockTemp)
 
 if __name__ == '__main__':
     # mkdir('D:\\finance\\002024\\year\\debt.xml')
