@@ -131,6 +131,8 @@ def callAllIndexFuc(benefitSubject, benefitData, debtSubject, debtData, cashSubj
     indexList.append(calUtils.calRetainedProfitsGrowth(mainSubject, mainData))
     # 计算扣非净利润同比增长率()
     indexList.append(calUtils.calNonNetRetainedProfitsGrowth(mainSubject, mainData))
+    # 计算营业收入
+    indexList.append(calUtils.calOperationRevenue(benefitSubject, benefitData))
 
     return indexList
 

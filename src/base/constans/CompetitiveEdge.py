@@ -17,3 +17,5 @@ class CompetitiveEdge(Enum):
     AnalysisFreeCashFlow = '分析自由现金流的组成'
     # 分析成长性
     Growth = '分析成长性'
+    # 分析盈利性
+    TheForProfit = '分析盈利性'

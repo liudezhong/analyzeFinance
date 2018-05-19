@@ -261,3 +261,7 @@ def calRetainedProfitsGrowth(subject, data):
 # 计算扣非净利润同比增长率()
 def calNonNetRetainedProfitsGrowth(subject, data):
     return commonUtils.calCommonIndex(subject, data, mainEnum.Main.NonNetRetainedProfitsGrowth.value)
+
+# 计算营业收入
+def calOperationRevenue(subject, data):
+    return commonUtils.calCommonIndex(subject, data, benefitEnum.Benefit.OperationRevenue.value)

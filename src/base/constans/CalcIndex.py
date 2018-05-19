@@ -42,3 +42,4 @@ class CalcIndex(Enum):
     TakeNonRetainedProfits = '扣非净利润(元)'
     RetainedProfitsGrowth= '净利润同比增长率()'
     NonNetRetainedProfitsGrowth= '扣非净利润同比增长率()'
+    OperationRevenue = '营业收入(元)'

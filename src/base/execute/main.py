@@ -5,6 +5,7 @@ import src.base.handle_data.handleJsonToExcel as handleFuc
 import src.base.calc_index.calcIndex as calcIndexFuc
 import src.base.analysis.competitiveAdvantage as comptAdvFuc
 import src.base.analysis.analysisGrow as analyGrowFuc
+import src.base.analysis.theForProfit as forProfitFuc
 
 def execute(code):
     # TODO 后期再加上这个数据库的初始化操作，先实现报表的统计计量
@@ -13,6 +14,8 @@ def execute(code):
     calcIndexFuc.calAllIndex(code)
     comptAdvFuc.competitiveAdvantage(code)
     analyGrowFuc.calGrowth(code)
+    forProfitFuc.calPercentageProfitStatement(code)
+
 
 
 if __name__ =='__main__':
