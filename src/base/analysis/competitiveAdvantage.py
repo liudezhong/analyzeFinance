@@ -61,9 +61,6 @@ def evaluateCompetitiveAdvantageCycle():
 def analysisIndustryStructure():
     pass
 
-# 评估成长性
-def calGrowth(code):
-    pass
 
 
 if __name__ == '__main__':

@@ -56,9 +56,13 @@ def generatorOriginalFiles(code):
     # 运营能力
     obtainDataFromUrl('operate', code)
 
-
+#
+def test11(code):
+    url = 'http://www.iwencai.com/stockpick/search?typed=0&preParams=&ts=1&f=1&qs=result_original&selfsectsn=&querytype=stock&searchfilter=&tid=stockpick&w=600600'
+    response = requests.get(url, headers=UrlEnum.Url.send_headers.value)
+    print(response.text)
 
 
 if __name__ =='__main__':
     # generatorOriginalFiles('002024')
-    print(obtainNameFromCode('002024'))
+    print(test11('002024'))
