@@ -46,3 +46,4 @@ class CalcIndex(Enum):
     CurrentRatio = '流动比率()'
     QuickRatio = '速动比率()'
     ConserQuickRatio = '保守速动比率()'
+    RevenuePerShare = '每股销售收入'

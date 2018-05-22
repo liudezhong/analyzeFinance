@@ -273,3 +273,15 @@ def calQuickRatio(subject, data):
 # 计算保守速动比率
 def calConserQuickRatio(subject, data):
     return commonUtils.calCommonIndex(subject, data, payEnum.Pay.ConserQuickRatio.value)
+
+# 计算每股销售收入
+def calRevenuePerShare(param, subject, data):
+    # 计算销售收入
+    sellProvAmount = calSellProvAmount(subject, data)
+    # 获取总股本
+    circulateCount = param['circulateCount']
+    revenuePerShare = commonUtils.handleDivisionZero(sellProvAmount, circulateCount)
+    print('计算每股销售收入的结果为：', revenuePerShare)
+    return revenuePerShare
+
+

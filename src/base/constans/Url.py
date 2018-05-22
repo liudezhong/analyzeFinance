@@ -11,3 +11,4 @@ class Url(Enum):
         "Accept-Language": "zh-CN,zh;q=0.8",
         "Content-Type":"text/html; charset=utf-8"}
     sina_url = "http://hq.sinajs.cn/list="
+    netease_url = "http://quotes.money.163.com/f10/Code.html"

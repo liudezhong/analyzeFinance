@@ -15,6 +15,8 @@ import src.base.constans.Constans as constansEnum
 import src.base.constans.File as fileEnum
 import src.base.constans.OSSystem as osEnum
 import src.base.constans.Type as typeEnum
+import src.base.constans.Netease as netEnum
+from bs4 import BeautifulSoup
 
 _rebuild()  # reload一下
 
@@ -166,6 +168,7 @@ def transMoney(data):
     else:
         return float(data)
 
+
 # 处理除数为0除法
 def handleDivisionZero(data1, data2):
     if (data2 == 0):
@@ -237,6 +240,20 @@ def createStockTemp(code, industry):
     stockTemp = {'stock':code, 'industry':industry, 'createTime': datetime.datetime.now(), 'updateTime': datetime.datetime.now(),
                    'updateCount': 0, 'status': 0}
     return copy.deepcopy(stockTemp)
+
+# 计算总股本
+def getCirculateCount(gdfxInfo):
+    soup = BeautifulSoup(gdfxInfo, 'lxml')
+    tables = soup.findAll('table')
+    special = tables[0]
+    for table in soup.findAll('table'):
+        for tr in table.findAll('tr'):
+            for th in tr.findAll('td'):
+                text = th.getText()
+                if text == netEnum.Netease.circulate.value:
+                    special = tr.getText()
+
+    return int(transMoney(special.strip().split('\n')[1] + '亿'))
 
 if __name__ == '__main__':
     # mkdir('D:\\finance\\002024\\year\\debt.xml')

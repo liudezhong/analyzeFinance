@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 from urllib import request
 from bs4 import BeautifulSoup  # Beautiful Soup是一个可以从HTML或XML文件中提取结构化数据的Python库
-
+import re
 # 构造头文件，模拟浏览器访问
 url = "http://www.iwencai.com/stockpick/search?ts=1&f=1&qs=stockhome_topbar_click&w=600600"
 url1 = "http://www.iwencai.com/stockpick/search?tid=stockpick&qs=stockpick_diag&ts=1&w=600600"
@@ -32,3 +32,10 @@ for table in soup.findAll('table'):
             # print(text)
 
 print(special.strip().split('\n'))
+
+
+test = '111g'
+if re.fullmatch(r'\d', test):
+    print('ok')
+else:
+    print('failed')

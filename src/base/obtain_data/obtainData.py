@@ -5,6 +5,7 @@ import src.base.commons.commonUtils as commonUtils
 import src.base.constans.Url as UrlEnum
 import src.base.file_utils.fileUtils as fileUtils
 import src.base.constans.StockBelongs as stockBeEnum
+from urllib import request
 
 
 # 从互联网获取获取文件
@@ -56,13 +57,15 @@ def generatorOriginalFiles(code):
     # 运营能力
     obtainDataFromUrl('operate', code)
 
-#
-def test11(code):
-    url = 'http://www.iwencai.com/stockpick/search?typed=0&preParams=&ts=1&f=1&qs=result_original&selfsectsn=&querytype=stock&searchfilter=&tid=stockpick&w=600600'
-    response = requests.get(url, headers=UrlEnum.Url.send_headers.value)
-    print(response.text)
+# 爬取股东分析页面
+def obtainHtmlFromNetease(code, type):
+    typeCode = type + '_' + code
+    netEaseUrl = UrlEnum.Url.netease_url.value.replace('Code', typeCode)
+    page = request.Request(netEaseUrl, headers=UrlEnum.Url.send_headers.value)
+    request.urlopen(page).read().decode('utf-8')
+    return request.urlopen(page).read().decode('utf-8')
 
 
 if __name__ =='__main__':
     # generatorOriginalFiles('002024')
-    print(test11('002024'))
+    print(obtainHtmlFromNetease('002024', 'gdfx'))
