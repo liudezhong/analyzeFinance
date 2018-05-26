@@ -65,7 +65,11 @@ def obtainHtmlFromNetease(code, type):
     request.urlopen(page).read().decode('utf-8')
     return request.urlopen(page).read().decode('utf-8')
 
+# 获取历史交易数据
+def obtainHistoricalTransactionData(code):
+    pass
 
 if __name__ =='__main__':
     # generatorOriginalFiles('002024')
-    print(obtainHtmlFromNetease('002024', 'gdfx'))
+    # print(obtainHtmlFromNetease('002024', 'gdfx'))
+    print(obtainNameFromCode('002024'))
