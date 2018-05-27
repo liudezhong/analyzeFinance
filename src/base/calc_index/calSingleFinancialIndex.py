@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 
-import src.base.commons.commonUtils as commonUtils
+import src.base.commons.CommonUtils as commonUtils
 import src.base.constans.Benefit as benefitEnum
 import src.base.constans.Debt as debtEnum
 import src.base.constans.Cash as cashEnum

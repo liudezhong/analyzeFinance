@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 import xlrd
 
-import src.base.commons.commonUtils as commUtils
+import src.base.commons.CommonUtils as commUtils
 import src.base.constans.Finance as FinanceEnum
 import src.base.constans.Export as exportEnum
 

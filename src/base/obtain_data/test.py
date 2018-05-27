@@ -6,21 +6,31 @@ import re
 # 构造头文件，模拟浏览器访问
 url2 = 'http://quotes.money.163.com/f10/gdfx_603589.html#01d01'
 url = 'http://quotes.money.163.com/trade/lsjysj_603589.html?year=2018&season=1'
-download_url = "http://quotes.money.163.com/service/chddata.html?code=1"+"603589"+"&start="+"20150101"+"&end="+"20160101"+"&fields=TCLOSE;HIGH;LOW;TOPEN;LCLOSE;CHG;PCHG;TURNOVER;VOTURNOVER;VATURNOVER;TCAP;MCAP"
+download_url = "http://quotes.money.163.com/service/chddata.html?code=0"+"603589"+"&start="+"20150101"+"&end="+"20160231"+"&fields=TCLOSE;HIGH;LOW;TOPEN;LCLOSE;CHG;PCHG;TURNOVER;VOTURNOVER;VATURNOVER;TCAP;MCAP"
+hy_url = "http://quotes.money.163.com/f10/hydb_600600.html"
 
-data = requests.get(download_url)
-print('data = ', data.text.split('\r\n')),
 
-# headers = {
-#     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36'}
-# page = request.Request(download_url, headers=headers)
-# page_info = request.urlopen(page).read().decode('utf-8')  # 打开Url,获取HttpResponse返回对象并读取其ResposneBody
+# data = requests.get(download_url)
+# print('data = ', data.text.split('\r\n')),
+
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36'}
+page = request.Request(hy_url, headers=headers)
+page_info = request.urlopen(page).read().decode('utf-8')  # 打开Url,获取HttpResponse返回对象并读取其ResposneBody
 # print(page_info)
 
 
-# soup = BeautifulSoup(page_info, 'lxml')
-# tables = soup.findAll('table')
-#
+soup = BeautifulSoup(page_info, 'lxml')
+divs = soup.findAll('div', class_='inner_box industry_info')
+print(divs)
+for div in divs:
+    for span in div.findAll('span'):
+        print(span.strong.getText())
+        if None != span.em and None != span.em.a and None != span.em.a.getText():
+            print('span.em.a.getText() = ', span.em.a.getText()),
+        if span.strong.getText().find('所属地域') >= 0:
+            print('aaa = ', span.em.a.getText())
+
 # special = tables[0]
 # for table in soup.findAll('table'):
 #     # print(111, table)
@@ -33,7 +43,7 @@ print('data = ', data.text.split('\r\n')),
 #             if text == '流通A股(亿股)':
 #                 special = tr.getText()
 #             # print(text)
-#
+
 # print(special.strip().split('\n'))
 
 
@@ -42,3 +52,4 @@ print('data = ', data.text.split('\r\n')),
 #     print('ok')
 # else:
 #     print('failed')
+# print('a：'.find('：'))

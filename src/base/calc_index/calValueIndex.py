@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-import src.base.commons.commonUtils as commUtils
+import src.base.commons.CommonUtils as commUtils
 import src.base.obtain_data.obtainData as obtainUtils
 import src.base.constans.Netease as netEnum
 

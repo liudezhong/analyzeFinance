@@ -6,3 +6,5 @@ from enum import Enum
 class StockBelongs(Enum):
     SH = 'sh'
     SZ = 'sz'
+    sh = '0'
+    sz = '1'

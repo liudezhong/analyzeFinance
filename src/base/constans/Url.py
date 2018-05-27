@@ -13,4 +13,4 @@ class Url(Enum):
     sina_url = "http://hq.sinajs.cn/list="
     netease_url = "http://quotes.money.163.com/f10/Code.html"
     netEase_chddata_url = "http://quotes.money.163.com/service/chddata.html?code=TYPECODE&start=START&end=END&fields=TCLOSE;HIGH;LOW;TOPEN;LCLOSE;CHG;PCHG;TURNOVER;VOTURNOVER;VATURNOVER;TCAP;MCAP"
-
+    industry_url = "http://quotes.money.163.com/f10/hydb_CODE.html"

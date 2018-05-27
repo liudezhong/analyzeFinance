@@ -11,6 +11,7 @@ import src.base.analysis.financialHealth as finanHealthFuc
 def execute(code):
     # TODO 后期再加上这个数据库的初始化操作，先实现报表的统计计量
     obtainFuc.generatorOriginalFiles(code)
+    obtainFuc.obtainHistoricalTransactionData(code)
     handleFuc.allHandleDataToExcel(code)
     calcIndexFuc.calAllIndex(code)
     comptAdvFuc.competitiveAdvantage(code)
@@ -21,10 +22,10 @@ def execute(code):
 
 
 if __name__ =='__main__':
-    # execute('002024')
-    # execute('600118')
-    # execute('000002')
-    # execute('002078')
-    # execute('600600')
-    # execute('300438')
+    execute('002024')
+    execute('600118')
+    execute('000002')
+    execute('002078')
+    execute('600600')
+    execute('300438')
     execute('000635')

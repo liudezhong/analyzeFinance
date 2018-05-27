@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 import platform
-import src.base.commons.commonUtils as commonUtils
+import src.base.commons.CommonUtils as commonUtils
 import src.base.constans.Type as typeEnum
 import src.base.constans.Export as exportEnum
 import src.base.constans.Analysis as analysisEnum
