@@ -114,6 +114,7 @@ def obtainHistoricalTransactionData(code):
     # 放入数据
     stockTemp['name'] = codeName
     stockTemp['hisTransName'] = codeName
+    stockTemp['address'] = codeType
     stockTemp[inContastEnum.IndustryContrast.industry.name] = industryInfo[inContastEnum.IndustryContrast.industry.name]
     stockTemp[inContastEnum.IndustryContrast.upcompany.name] = industryInfo[inContastEnum.IndustryContrast.upcompany.name]
     stockTemp[inContastEnum.IndustryContrast.regional.name] = industryInfo[inContastEnum.IndustryContrast.regional.name]
@@ -135,7 +136,7 @@ def obtainHistoricalTransactionData(code):
         if len(transMonthData) > 0:
             monthData[month] = transMonthData
     stockTemp['hisTransData'] = monthData
-    dbUtil = mongoDb.initDb()
+    dbUtil = mongoDb.getStockDb()
     if dbUtil.find({'stock': code}).count() > 0:
         dbUtil.delete_many({'stock': code})
     print(stockTemp)

@@ -6,4 +6,5 @@ from enum import Enum
 class Mongodb(Enum):
     MongoUrl = '127.0.0.1:27017'
     Database = 'analysis'
-    Collection = 'stock'
+    CollectionStock = 'stock'
+    CollectionFinancial = 'financial'

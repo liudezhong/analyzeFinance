@@ -8,28 +8,31 @@ url2 = 'http://quotes.money.163.com/f10/gdfx_603589.html#01d01'
 url = 'http://quotes.money.163.com/trade/lsjysj_603589.html?year=2018&season=1'
 download_url = "http://quotes.money.163.com/service/chddata.html?code=0"+"603589"+"&start="+"20150101"+"&end="+"20160231"+"&fields=TCLOSE;HIGH;LOW;TOPEN;LCLOSE;CHG;PCHG;TURNOVER;VOTURNOVER;VATURNOVER;TCAP;MCAP"
 hy_url = "http://quotes.money.163.com/f10/hydb_600600.html"
-
-
+url1 = 'http://210.21.214.18:8180/RecordingManagerService/recordingcache/1527673552646/C116881.wav'
+r = requests.get(url=url1)
+with open('/Users/fanpu/developer/demp.wav', 'wb') as f:
+    print(1111)
+    f.write(r.content)
 # data = requests.get(download_url)
 # print('data = ', data.text.split('\r\n')),
 
-headers = {
-    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36'}
-page = request.Request(hy_url, headers=headers)
-page_info = request.urlopen(page).read().decode('utf-8')  # 打开Url,获取HttpResponse返回对象并读取其ResposneBody
-# print(page_info)
-
-
-soup = BeautifulSoup(page_info, 'lxml')
-divs = soup.findAll('div', class_='inner_box industry_info')
-print(divs)
-for div in divs:
-    for span in div.findAll('span'):
-        print(span.strong.getText())
-        if None != span.em and None != span.em.a and None != span.em.a.getText():
-            print('span.em.a.getText() = ', span.em.a.getText()),
-        if span.strong.getText().find('所属地域') >= 0:
-            print('aaa = ', span.em.a.getText())
+# headers = {
+#     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36'}
+# page = request.Request(hy_url, headers=headers)
+# page_info = request.urlopen(page).read().decode('utf-8')  # 打开Url,获取HttpResponse返回对象并读取其ResposneBody
+# # print(page_info)
+#
+#
+# soup = BeautifulSoup(page_info, 'lxml')
+# divs = soup.findAll('div', class_='inner_box industry_info')
+# print(divs)
+# for div in divs:
+#     for span in div.findAll('span'):
+#         print(span.strong.getText())
+#         if None != span.em and None != span.em.a and None != span.em.a.getText():
+#             print('span.em.a.getText() = ', span.em.a.getText()),
+#         if span.strong.getText().find('所属地域') >= 0:
+#             print('aaa = ', span.em.a.getText())
 
 # special = tables[0]
 # for table in soup.findAll('table'):

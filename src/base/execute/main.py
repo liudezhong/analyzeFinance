@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 import src.base.obtain_data.obtainData as obtainFuc
-import src.base.handle_data.handleJsonToExcel as handleFuc
+import src.base.handle_data.handleJsonData as handleFuc
 import src.base.calc_index.calcIndex as calcIndexFuc
 import src.base.analysis.competitiveAdvantage as comptAdvFuc
 import src.base.analysis.analysisGrow as analyGrowFuc
@@ -13,19 +13,19 @@ def execute(code):
     obtainFuc.generatorOriginalFiles(code)
     obtainFuc.obtainHistoricalTransactionData(code)
     handleFuc.allHandleDataToExcel(code)
-    calcIndexFuc.calAllIndex(code)
-    comptAdvFuc.competitiveAdvantage(code)
-    analyGrowFuc.calGrowth(code)
-    forProfitFuc.calPercentageProfitStatement(code)
-    finanHealthFuc.calfinancialHealth(code)
+    # calcIndexFuc.calAllIndex(code)
+    # comptAdvFuc.competitiveAdvantage(code)
+    # analyGrowFuc.calGrowth(code)
+    # forProfitFuc.calPercentageProfitStatement(code)
+    # finanHealthFuc.calfinancialHealth(code)
 
 
 
 if __name__ =='__main__':
-    execute('002024')
-    execute('600118')
-    execute('000002')
-    execute('002078')
-    execute('600600')
-    execute('300438')
+    # execute('002024')
+    # execute('600118')
+    # execute('000002')
+    # execute('002078')
+    # execute('600600')
+    # execute('300438')
     execute('000635')
