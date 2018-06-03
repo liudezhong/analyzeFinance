@@ -8,3 +8,4 @@ class Mongodb(Enum):
     Database = 'analysis'
     CollectionStock = 'stock'
     CollectionFinancial = 'financial'
+    CollectionIndex = 'index'

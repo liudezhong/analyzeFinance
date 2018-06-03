@@ -13,7 +13,7 @@ def execute(code):
     obtainFuc.generatorOriginalFiles(code)
     obtainFuc.obtainHistoricalTransactionData(code)
     handleFuc.allHandleDataToExcel(code)
-    # calcIndexFuc.calAllIndex(code)
+    calcIndexFuc.calAllIndex(code)
     # comptAdvFuc.competitiveAdvantage(code)
     # analyGrowFuc.calGrowth(code)
     # forProfitFuc.calPercentageProfitStatement(code)

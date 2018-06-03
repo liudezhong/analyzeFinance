@@ -9,11 +9,16 @@ Stock
     stockCollection = {'stock':'000635', createTime: now(), updateTime: now(), updateCount:0}
     industryCollection = {'building': [{}, {}], 'food'：[{}, {}]}
 '''
+# 获取client
+def getMongoClient():
+    mongoUrl = mongodbEnum.Mongodb.MongoUrl.value
+    client = pymongo.MongoClient(mongoUrl)
+    return client
+
 # mongodb初始化
 def initDb():
-    mongoUrl = mongodbEnum.Mongodb.MongoUrl.value
     dataBase = mongodbEnum.Mongodb.Database.value
-    client = pymongo.MongoClient(mongoUrl)
+    client = getMongoClient()
     db = client[dataBase]
     # 返回数据库连接对象
     return db
@@ -30,6 +35,11 @@ def getFinancialDb():
     db = initDb()
     return db[collection]
 
+# 获取股票财务指标 数据集合
+def getIndexDb():
+    collection = mongodbEnum.Mongodb.CollectionIndex.value
+    db = initDb()
+    return db[collection]
 
 # 根据code和行业初始化数据库
 def initStock(code, industry):

@@ -13,6 +13,7 @@ import src.base.constans.Analysis as analysisEnum
 用于计算常用的指标
 '''
 
+
 # 获取通用数据结构
 def getCommonData(code):
     data = {}
@@ -37,31 +38,41 @@ def calAllIndex(code):
         firstKey = code + '_' + financeName
         # 生成模板类文件
         excelDist = handleUtils.handleIndexTemplateToExcel(data[firstKey][exportEnum.Export.benefit.value]['datetime'],
-                                               analysisEnum.Analysis.analysis.value, financeName,
-                                               code)
+                                                           analysisEnum.Analysis.analysis.value, financeName,
+                                                           code)
+        print('firstKey = ', data[firstKey]['debt']['datetime'])
+        distData = {}
         col = 1
         for dateTime in data[firstKey]['debt']['datetime']:
             dateTimeKey = dateTime
             if financeMem.value == financeEnum.Finance.year.value:
                 dateTimeKey = str(dateTime)[0:4]
             indexList = callAllIndexFuc(
-                             param,
-                             data[firstKey][exportEnum.Export.benefit.value]['subject'],
-                             data[firstKey][exportEnum.Export.benefit.value][dateTime],
-                             data[firstKey][exportEnum.Export.debt.value]['subject'],
-                             data[firstKey][exportEnum.Export.debt.value][dateTime],
-                             data[firstKey][exportEnum.Export.cash.value]['subject'],
-                             data[firstKey][exportEnum.Export.cash.value][dateTime],
-                             data[firstKey][exportEnum.Export.main.value]['subject'],
-                             data[firstKey][exportEnum.Export.main.value][dateTime],
-                             data[firstKey][exportEnum.Export.pay.value]['subject'],
-                             data[firstKey][exportEnum.Export.pay.value][dateTimeKey]
-                             )
+                param,
+                data[firstKey][exportEnum.Export.benefit.value]['subject'],
+                data[firstKey][exportEnum.Export.benefit.value][dateTime],
+                data[firstKey][exportEnum.Export.debt.value]['subject'],
+                data[firstKey][exportEnum.Export.debt.value][dateTime],
+                data[firstKey][exportEnum.Export.cash.value]['subject'],
+                data[firstKey][exportEnum.Export.cash.value][dateTime],
+                data[firstKey][exportEnum.Export.main.value]['subject'],
+                data[firstKey][exportEnum.Export.main.value][dateTime],
+                data[firstKey][exportEnum.Export.pay.value]['subject'],
+                data[firstKey][exportEnum.Export.pay.value][dateTimeKey]
+            )
+            distData[dateTimeKey] = indexList
             handleUtils.handleDataToExcel(indexList, col, analysisEnum.Analysis.analysis.value, excelDist)
             col += 1
+        # 调用存储指标入库程序
+        print(financeMem.value, '财务指标数据入库开始')
+        handleUtils.processDataToMongo(data[firstKey]['debt']['datetime'], distData, financeMem.value,
+                                       analysisEnum.Analysis.analysis.value, code)
+        print(financeMem.value, '财务指标数据入库结束')
+
 
 # 计算所有指标
-def callAllIndexFuc(param, benefitSubject, benefitData, debtSubject, debtData, cashSubject, cashData, mainSubject, mainData,
+def callAllIndexFuc(param, benefitSubject, benefitData, debtSubject, debtData, cashSubject, cashData, mainSubject,
+                    mainData,
                     paySubject, payData):
     indexList = []
     # 计算财务费用
@@ -151,8 +162,8 @@ def callAllIndexFuc(param, benefitSubject, benefitData, debtSubject, debtData, c
     # 计算每股销售收入
     indexList.append(calUtils.calRevenuePerShare(param, cashSubject, cashData))
 
-
     return indexList
+
 
 if __name__ == '__main__':
     calAllIndex('002078')
