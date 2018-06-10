@@ -163,8 +163,16 @@ def transMoney(data):
     # 包含亿的处理方式
     elif dataMoney.find(u'亿') != -1:
         return float(dataMoney.split(u'亿')[0]) * 100000000
+    # 包含百分比
     elif dataMoney.find('%') != -1:
         return float(dataMoney.split('%')[0]) / 100
+    # 包含 e + n
+    elif dataMoney.find('e+') != -1:
+        dataMoneyE = int(dataMoney.split('e+')[1])
+        k = 1
+        for i in range(dataMoneyE):
+            k = k * 10
+        return float(dataMoney.split('e+')[0]) * k
     else:
         return float(data)
 
@@ -262,4 +270,9 @@ if __name__ == '__main__':
     # print(getAnalysisPath('analysis', 'report', '002024'))
     # print(float(transMoney('1.07万亿')))
     # historicalProfitabilityEnumIndex([calcIndexEnum.CalcIndex.RetainedProfits.value, calcIndexEnum.CalcIndex.GrossProfitRate.value])
-    print(np.arange(0, 10, 2))
+    # print(np.arange(0, 10, 2))
+    transMoney('1.24847631774e+11')
+    k = 1
+    for i in range(3):
+        k = k * 10
+    print(k)

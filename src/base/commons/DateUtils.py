@@ -27,6 +27,17 @@ def addMonths(dt, months):
 def getYear(interval):
     return int(datetime.datetime.now().strftime("%Y")) + interval
 
+# 获取当天股票交易日对应的股票指标日期
+def getSomeIndexDay(transDay, indexDays):
+    if transDay >= indexDays[0]:
+        return indexDays[0]
+    elif transDay <= indexDays[len(indexDays) - 1]:
+        return indexDays[len(indexDays) - 1]
+
+    for index in range(len(indexDays) - 2):
+        if transDay >= indexDays[index + 1] and transDay < indexDays[index]:
+            return indexDays[index + 1]
+
 
 if __name__ == '__main__':
     print(getBetweenMonth('2008-01-01'))

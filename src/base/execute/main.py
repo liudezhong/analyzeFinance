@@ -14,18 +14,18 @@ def execute(code):
     obtainFuc.obtainHistoricalTransactionData(code)
     handleFuc.allHandleDataToExcel(code)
     calcIndexFuc.calAllIndex(code)
-    # comptAdvFuc.competitiveAdvantage(code)
-    # analyGrowFuc.calGrowth(code)
-    # forProfitFuc.calPercentageProfitStatement(code)
-    # finanHealthFuc.calfinancialHealth(code)
+    comptAdvFuc.competitiveAdvantage(code)
+    analyGrowFuc.calGrowth(code)
+    forProfitFuc.calPercentageProfitStatement(code)
+    finanHealthFuc.calfinancialHealth(code)
 
 
 
 if __name__ =='__main__':
-    # execute('002024')
-    # execute('600118')
-    # execute('000002')
-    # execute('002078')
-    # execute('600600')
-    # execute('300438')
+    execute('002024')
+    execute('600118')
+    execute('000002')
+    execute('002078')
+    execute('600600')
+    execute('300438')
     execute('000635')
