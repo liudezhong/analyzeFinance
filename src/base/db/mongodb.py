@@ -41,6 +41,12 @@ def getIndexDb():
     db = initDb()
     return db[collection]
 
+# 获取市盈率、市销率、市净率的数据库
+def getRadioDb():
+    collection = mongodbEnum.Mongodb.CollectionRadio.value
+    db = initDb()
+    return db[collection]
+
 # 根据code和行业初始化数据库
 def initStock(code, industry):
     dbUtils = initDb()

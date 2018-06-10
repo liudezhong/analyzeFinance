@@ -67,7 +67,7 @@ def processDataToMongo(times, datas, typeData, export, code):
     # 组装数据
     stockTemp[export + '_' + typeData + '_data'] = datas
     dbUtil = mongoDb.getIndexDb()
-    if dbUtil.find({'stock': code}).count() > 0:
+    if dbUtil.find({'stock': code, 'export': export, 'type': typeData}).count() > 0:
         dbUtil.delete_many({'stock': code, 'export': export, 'type': typeData})
     dbUtil.insert_one(stockTemp)
 

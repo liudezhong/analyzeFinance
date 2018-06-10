@@ -38,6 +38,12 @@ def getSomeIndexDay(transDay, indexDays):
         if transDay >= indexDays[index + 1] and transDay < indexDays[index]:
             return indexDays[index + 1]
 
+# 根据当前日期计算上一年
+def getLastYear(specificate):
+    if specificate is None or specificate == '':
+        return None
+    year = int(specificate[0:4]) - 1
+    return str(year)
 
 if __name__ == '__main__':
     print(getBetweenMonth('2008-01-01'))

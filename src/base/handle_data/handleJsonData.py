@@ -26,13 +26,13 @@ def singleHandleJsonToExcel(export, code):
             print('写入excel文件：', excelFileName, '结束', 'value = ', data['flashData'][member.value])
             # 财务数据入库开始
             print('财务数据入库：', excelFileName, '开始', 'title = ', data['flashData']['title']),
+            print('flashData = ', data['flashData'][member.value][1]),
             processDataToMongo(data['flashData']['title'], data['flashData'][member.value], member.value, export, code)
             print('财务数据入库：', excelFileName, '结束', 'value = ', data['flashData'][member.value])
 
 
 # 财务数据入库
 def processDataToMongo(titles, datas, typeData, export, code):
-    distData = {}
     codeName = obtainDataUtils.obtainNameFromCode(code)
     # 获取是上海还是深圳
     codeType = obtainDataUtils.determineLocation(code)
@@ -54,12 +54,14 @@ def processDataToMongo(titles, datas, typeData, export, code):
     stockTemp[export + '_' + typeData + '_time'] = datas[0]
     distExport = {}
     # 组装数据
-    for data in datas[0]:
-        for da in datas[1:]:
-            distExport[str(data)] = da
+    for da in range(len(datas[0])):
+        dataList = []
+        for data in range(len(datas) - 1):
+            dataList.append(datas[data + 1][da])
+        distExport[str(datas[0][da])] = dataList
     stockTemp[export + '_' + typeData + '_data'] = distExport
     dbUtil = mongoDb.getFinancialDb()
-    if dbUtil.find({'stock': code}).count() > 0:
+    if dbUtil.find({'stock': code, 'export': export, 'type': typeData}).count() > 0:
         dbUtil.delete_many({'stock': code, 'export': export, 'type': typeData})
     dbUtil.insert_one(stockTemp)
 
