@@ -153,4 +153,4 @@ if __name__ == '__main__':
     # calPriceToSalesRatio('002024')
     # calPERatio('002024')
     # calPriceToBook('002024')
-    RatioToMongo('002024')
+    calRatioToMongo('002024')
