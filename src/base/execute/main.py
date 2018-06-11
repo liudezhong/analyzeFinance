@@ -19,7 +19,10 @@ def execute(code):
     analyGrowFuc.calGrowth(code)
     forProfitFuc.calPercentageProfitStatement(code)
     finanHealthFuc.calfinancialHealth(code)
+    # 市盈率目前只有静态，没有静态，分析文件还没有创建
     analysisRateFuc.calRatioToMongo(code)
+    # todo 折现现金流
+
 
 
 if __name__ =='__main__':
