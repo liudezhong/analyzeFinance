@@ -10,6 +10,7 @@ def calCirculateCount(code):
     print('计算流通A股总数的结果为：', circulateCount)
     return {'circulateCount': circulateCount}
 
-
+if __name__ == '__main__':
+    calCirculateCount('600600')
 
 

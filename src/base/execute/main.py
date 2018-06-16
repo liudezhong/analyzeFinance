@@ -8,6 +8,7 @@ import src.base.analysis.analysisGrow as analyGrowFuc
 import src.base.analysis.theForProfit as forProfitFuc
 import src.base.analysis.financialHealth as finanHealthFuc
 import src.base.analysis.analysisEveryRate as analysisRateFuc
+import src.base.analysis.analysisDiscounted as analysisDiscountedFuc
 
 def execute(code):
     # TODO 后期再加上这个数据库的初始化操作，先实现报表的统计计量
@@ -22,6 +23,7 @@ def execute(code):
     # 市盈率目前只有静态，没有静态，分析文件还没有创建
     analysisRateFuc.calRatioToMongo(code)
     # todo 折现现金流
+    analysisDiscountedFuc.calDiscountedCashFlow(code)
 
 
 
@@ -33,3 +35,4 @@ if __name__ =='__main__':
     execute('600600')
     execute('300438')
     execute('000635')
+    execute('600519')
